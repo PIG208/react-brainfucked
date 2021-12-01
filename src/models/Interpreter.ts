@@ -1,5 +1,6 @@
 import { IOStream, read, write } from "./IOStream";
 
+const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
 
 export type ProgramState = {
@@ -23,6 +24,39 @@ const copyState = (state: ProgramState): ProgramState => ({
 const readMemory = (state: ProgramState) => state.memory[state.dataPointer];
 const writeMemory = (state: ProgramState, data: number) =>
   (state.memory[state.dataPointer] = data);
+const fetchInstruction = (state: ProgramState): Instruction =>
+  state.program[state.programCounter];
+
+/**
+ * Parse out the initial loop and ignore non-instruction characters
+ */
+export const parse = (program: string): Instruction[] => {
+  let output: any = [];
+  if (program.startsWith("[")) {
+    let count = 1,
+      index = 1;
+    while (count > 0) {
+      if (program[index] === "[") {
+        count++;
+      }
+      if (program[index] === "]") {
+        count--;
+      }
+      if (index > 30000) {
+        throw new Error("Unbalanced brackets");
+      }
+      index++;
+    }
+    program = program.slice(index + 1);
+  }
+
+  for (let s of program) {
+    if (instructionSet.has(s)) {
+      output.push(s);
+    }
+  }
+  return output;
+};
 
 export const consume = (state: ProgramState): ProgramState => {
   let newState = copyState(state);
