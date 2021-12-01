@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+
+    - name: Install Packages
+      run: yarn
+
+    - name: Run lint
+      run: yarn check-lint
