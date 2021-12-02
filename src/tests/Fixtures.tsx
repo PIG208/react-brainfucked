@@ -1,10 +1,10 @@
 import { IOStream } from "../models/IOStream";
 
-export const MockStream: IOStream = {
-  buffer: [],
+export const MockStream = (content: string = ""): IOStream => ({
+  buffer: Array.from(content).map((c) => c.charCodeAt(0)),
   size: Infinity,
   pointer: 0,
-};
+});
 
 export const testHelloWorld = {
   raw: `[ This program prints "Hello World!" and a newline to the screen, its
