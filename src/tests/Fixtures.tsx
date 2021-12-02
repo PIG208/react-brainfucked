@@ -1,3 +1,11 @@
+import { IOStream } from "../models/IOStream";
+
+export const MockStream: IOStream = {
+  buffer: [],
+  size: Infinity,
+  pointer: 0,
+};
+
 export const testHelloWorld = {
   raw: `[ This program prints "Hello World!" and a newline to the screen, its
 length is 106 active command characters. [It is not the shortest.]

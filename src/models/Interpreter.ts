@@ -76,10 +76,10 @@ export const consume = (state: ProgramState): ProgramState => {
       newState.dataPointer--;
       break;
     case "+":
-      writeMemory(state, readMemory(state) + 1);
+      writeMemory(newState, readMemory(newState) + 1);
       break;
     case "-":
-      writeMemory(state, readMemory(state) - 1);
+      writeMemory(newState, readMemory(newState) - 1);
       break;
     case ",":
       [newState.stdin, newState.memory[newState.dataPointer]] = read(
