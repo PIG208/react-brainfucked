@@ -41,7 +41,7 @@ export const runCycles = (state: ProgramState, cycles: number): RunResult => {
 
 export const run = (state: ProgramState): RunResult => {
   let cycles = 0;
-  while (!isEnded(state) && cycles++ <= MAX_PROGRAM_CYCLES) {
+  while (!isEnded(state) && ++cycles < MAX_PROGRAM_CYCLES) {
     state = consume(state);
   }
 

@@ -18,7 +18,6 @@ export const write = (stream: IOStream, data: number): IOStream => {
 
   if (newStream.pointer === newStream.buffer.length) newStream.buffer.push(data);
   else newStream.buffer[newStream.pointer] = data;
-
   newStream.pointer++;
 
   return newStream;
