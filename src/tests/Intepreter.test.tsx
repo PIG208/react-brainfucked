@@ -1,10 +1,10 @@
 import { consume, parse } from "../models/Interpreter";
 import { run, setupProgram } from "../models/Runner";
 import { ASCIIsToString } from "../models/utils";
-import { MockStream, testHelloWorld } from "./Fixtures";
+import { MockStream, nestedLoop, testHelloWorld } from "./Fixtures";
 
 test("interpreter parse", () => {
-  expect(parse(testHelloWorld.raw)).toEqual(Array.from(testHelloWorld.parsed));
+  expect(parse(testHelloWorld.raw)).toEqual(testHelloWorld.parsed);
 });
 
 test("interpreter commands basic +-", () => {
@@ -44,4 +44,21 @@ test("interpreter commands basic []", () => {
 
   const result = run(state);
   expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 4))).toEqual("test");
+});
+
+test("interpreter commands advanced []", () => {
+  let state = setupProgram(nestedLoop.parsed, MockStream("test"), MockStream());
+
+  const result = run(state);
+  expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 4))).toEqual("test");
+  expect(result.finalState.memory.slice(0, 5)).toEqual([0, 0, 116, 0, 12]);
+  expect(result.numCycles).toEqual(122);
+});
+
+test("interpreter helloworld", () => {
+  let state = setupProgram(testHelloWorld.parsed, MockStream(), MockStream());
+
+  const result = run(state);
+  expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 12))).toEqual("Hello World!");
+  expect(result.numCycles).toEqual(906);
 });
