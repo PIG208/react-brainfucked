@@ -8,7 +8,7 @@ export type RunResult = {
 };
 
 const MEMORY_SIZE = 30000;
-const MAX_PROGRAM_CYCLES = 2 << 8;
+export const MAX_PROGRAM_CYCLES = 2 << 16;
 
 export const setupProgram = (
   program: Instruction[],
