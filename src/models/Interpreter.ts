@@ -27,6 +27,9 @@ const writeMemory = (state: ProgramState, data: number) =>
 const fetchInstruction = (state: ProgramState): Instruction =>
   state.program[state.programCounter];
 
+export const isEnded = (state: ProgramState) =>
+  state.programCounter === state.program.length;
+
 /**
  * Parse out the initial loop and ignore non-instruction characters
  */
@@ -59,6 +62,8 @@ export const parse = (program: string): Instruction[] => {
 };
 
 export const consume = (state: ProgramState): ProgramState => {
+  if (isEnded(state)) return state;
+
   let newState = copyState(state);
   const instruction = fetchInstruction(newState);
   let overridePc = false;
