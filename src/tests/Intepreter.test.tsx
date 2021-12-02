@@ -1,6 +1,6 @@
 import { consume, parse } from "../models/Interpreter";
 import { run, setupProgram } from "../models/Runner";
-import { stringToASCIIs } from "../models/utils";
+import { ASCIIsToString } from "../models/utils";
 import { MockStream, testHelloWorld } from "./Fixtures";
 
 test("interpreter parse", () => {
@@ -32,7 +32,7 @@ test("interpreter commands basic ,.", () => {
   let state = setupProgram([",", "."], MockStream("test"), MockStream());
 
   state = run(state).finalState;
-  expect(state.stdout.buffer[0]).toEqual(stringToASCIIs("t")[0]);
+  expect(ASCIIsToString(state.stdout.buffer.slice(0, 1))).toEqual("t");
 });
 
 test("interpreter commands basic []", () => {
@@ -43,5 +43,5 @@ test("interpreter commands basic []", () => {
   );
 
   const result = run(state);
-  expect(result.finalState.stdout.buffer.slice(0, 4)).toEqual(stringToASCIIs("test"));
+  expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 4))).toEqual("test");
 });
