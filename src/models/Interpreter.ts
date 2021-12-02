@@ -110,7 +110,7 @@ export const consume = (state: ProgramState): ProgramState => {
       } else {
         // Jump back to the top of the jmpStack
         newState.programCounter =
-          newState.jmpStack[newState.jmpStack.length - 1];
+          newState.jmpStack[newState.jmpStack.length - 1] + 1;
         overridePc = true;
       }
       break;
