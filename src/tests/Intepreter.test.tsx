@@ -43,7 +43,5 @@ test("interpreter commands basic []", () => {
   );
 
   const result = run(state);
-  expect(result.finalState.stdout.buffer.slice(0, 4)).toEqual(
-    stringToASCIIs("test")
-  );
+  expect(result.finalState.stdout.buffer.slice(0, 4)).toEqual(stringToASCIIs("test"));
 });

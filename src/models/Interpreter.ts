@@ -22,13 +22,10 @@ const copyState = (state: ProgramState): ProgramState => ({
 });
 
 const readMemory = (state: ProgramState) => state.memory[state.dataPointer];
-const writeMemory = (state: ProgramState, data: number) =>
-  (state.memory[state.dataPointer] = data);
-const fetchInstruction = (state: ProgramState): Instruction =>
-  state.program[state.programCounter];
+const writeMemory = (state: ProgramState, data: number) => (state.memory[state.dataPointer] = data);
+const fetchInstruction = (state: ProgramState): Instruction => state.program[state.programCounter];
 
-export const isEnded = (state: ProgramState) =>
-  state.programCounter === state.program.length;
+export const isEnded = (state: ProgramState) => state.programCounter === state.program.length;
 
 /**
  * Parse out the initial loop and ignore non-instruction characters
@@ -87,9 +84,7 @@ export const consume = (state: ProgramState): ProgramState => {
       writeMemory(newState, readMemory(newState) - 1);
       break;
     case ",":
-      [newState.stdin, newState.memory[newState.dataPointer]] = read(
-        newState.stdin
-      );
+      [newState.stdin, newState.memory[newState.dataPointer]] = read(newState.stdin);
       break;
     case ".":
       newState.stdout = write(newState.stdout, readMemory(newState));
@@ -109,8 +104,7 @@ export const consume = (state: ProgramState): ProgramState => {
         newState.jmpStack.pop();
       } else {
         // Jump back to the top of the jmpStack
-        newState.programCounter =
-          newState.jmpStack[newState.jmpStack.length - 1] + 1;
+        newState.programCounter = newState.jmpStack[newState.jmpStack.length - 1] + 1;
         overridePc = true;
       }
       break;
