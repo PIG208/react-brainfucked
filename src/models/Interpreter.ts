@@ -1,5 +1,5 @@
 import { ReducerAction } from "../types";
-import { IOStream, read, write } from "./IOStream";
+import { ioReducer, IOStream } from "./IOStream";
 
 export type BrainfuckAction = ReducerAction<"next"> | ReducerAction<"write", number[]>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
@@ -86,12 +86,13 @@ const next = (state: ProgramState): ProgramState => {
       writeMemory(newState, readMemory(newState) - 1);
       break;
     case ",":
-      newState.stdin = read(newState.stdin, 1);
+      newState.stdin = ioReducer(newState.stdin, { type: "read", data: 1 });
       newState.memory[newState.dataPointer] = newState.stdin.readBuffer[0];
-      if (newState.stdin.readBuffer[0] === undefined) throw new Error(`invalid write ${newState.stdin}`);
+      if (newState.stdin.readBuffer[0] === undefined)
+        throw new Error(`invalid write ${newState.stdin}`);
       break;
     case ".":
-      newState.stdout = write(newState.stdout, readMemory(newState));
+      newState.stdout = ioReducer(newState.stdout, { type: "write", data: readMemory(newState) });
       break;
     case "[":
       if (readMemory(newState) !== 0) {
@@ -124,7 +125,7 @@ const next = (state: ProgramState): ProgramState => {
  */
 const writeToStdin = (state: ProgramState, data: number[]) => {
   let newState = copyState(state);
-  newState.stdin = write(newState.stdin, data);
+  newState.stdin = ioReducer(newState.stdin, { type: "write", data: data });
 
   return newState;
 };
