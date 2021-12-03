@@ -1,5 +1,5 @@
-import { consume, parse } from "../models/Interpreter";
-import { run, setupProgram } from "../models/Runner";
+import { parse } from "../models/Interpreter";
+import { run, runCycles, setupProgram } from "../models/Runner";
 import { ASCIIsToString } from "../models/utils";
 import { MockStream, nestedLoop, testHelloWorld } from "./Fixtures";
 
@@ -10,10 +10,10 @@ test("interpreter parse", () => {
 test("interpreter commands basic +-", () => {
   let state = setupProgram(["+", "+", "-"], MockStream(), MockStream());
 
-  state = consume(consume(state));
+  state = runCycles(state, 2).finalState;
   expect(state.memory[0]).toEqual(2);
 
-  state = consume(state);
+  state = runCycles(state, 1).finalState;
   expect(state.memory[0]).toEqual(1);
 });
 
