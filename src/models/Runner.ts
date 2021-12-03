@@ -1,5 +1,5 @@
-import { ProgramState, Instruction, brainfuckReducer, isEnded } from "./Interpreter";
 import { IOStream } from "./IOStream";
+import { ProgramState, Instruction, brainfuckReducer, isEnded } from "./Interpreter";
 
 export type RunResult = {
   finalState: ProgramState;

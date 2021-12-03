@@ -2,3 +2,11 @@ trailingComma: "es5"
 tabWidth: 2
 singleQuote: false
 printWidth: 100
+importOrder:
+  - "^react/(.*)$"
+  - "^.+/models/.*"
+  - "^.+/hooks/.*"
+  - "^.+/components/.*"
+  - "^.+/css/.*"
+  - "^[./]"
+importOrderSeparation: true

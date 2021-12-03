@@ -16,7 +16,7 @@
   dependencies:
     "@babel/highlight" "^7.10.4"
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.16.0", "@babel/code-frame@^7.5.5":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.0", "@babel/code-frame@^7.5.5":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/code-frame/download/@babel/code-frame-7.16.0.tgz#0dfc80309beec8411e65e706461c408b0bb9b431"
   integrity sha1-DfyAMJvuyEEeZecGRhxAiwu5tDE=
@@ -50,6 +50,28 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
+"@babel/core@7.13.10":
+  version "7.13.10"
+  resolved "https://registry.npmmirror.com/@babel/core/download/@babel/core-7.13.10.tgz?cache=0&sync_timestamp=1635560934979&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fcore%2Fdownload%2F%40babel%2Fcore-7.13.10.tgz#07de050bbd8193fcd8a3c27918c0890613a94559"
+  integrity sha1-B94FC72Bk/zYo8J5GMCJBhOpRVk=
+  dependencies:
+    "@babel/code-frame" "^7.12.13"
+    "@babel/generator" "^7.13.9"
+    "@babel/helper-compilation-targets" "^7.13.10"
+    "@babel/helper-module-transforms" "^7.13.0"
+    "@babel/helpers" "^7.13.10"
+    "@babel/parser" "^7.13.10"
+    "@babel/template" "^7.12.13"
+    "@babel/traverse" "^7.13.0"
+    "@babel/types" "^7.13.0"
+    convert-source-map "^1.7.0"
+    debug "^4.1.0"
+    gensync "^1.0.0-beta.2"
+    json5 "^2.1.2"
+    lodash "^4.17.19"
+    semver "^6.3.0"
+    source-map "^0.5.0"
+
 "@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.7.5", "@babel/core@^7.8.4":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/core/download/@babel/core-7.16.0.tgz?cache=0&sync_timestamp=1635560934979&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fcore%2Fdownload%2F%40babel%2Fcore-7.16.0.tgz#c4ff44046f5fe310525cc9eb4ef5147f0c5374d4"
@@ -71,7 +93,16 @@
     semver "^6.3.0"
     source-map "^0.5.0"
 
-"@babel/generator@^7.12.1", "@babel/generator@^7.16.0":
+"@babel/generator@7.13.9":
+  version "7.13.9"
+  resolved "https://registry.npmmirror.com/@babel/generator/download/@babel/generator-7.13.9.tgz#3a7aa96f9efb8e2be42d38d80e2ceb4c64d8de39"
+  integrity sha1-Onqpb577jivkLTjYDizrTGTY3jk=
+  dependencies:
+    "@babel/types" "^7.13.0"
+    jsesc "^2.5.1"
+    source-map "^0.5.0"
+
+"@babel/generator@^7.12.1", "@babel/generator@^7.13.0", "@babel/generator@^7.13.9", "@babel/generator@^7.16.0":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/generator/download/@babel/generator-7.16.0.tgz#d40f3d1d5075e62d3500bccb67f3daa8a95265b2"
   integrity sha1-1A89HVB15i01ALzLZ/PaqKlSZbI=
@@ -95,7 +126,7 @@
     "@babel/helper-explode-assignable-expression" "^7.16.0"
     "@babel/types" "^7.16.0"
 
-"@babel/helper-compilation-targets@^7.12.1", "@babel/helper-compilation-targets@^7.13.0", "@babel/helper-compilation-targets@^7.16.0", "@babel/helper-compilation-targets@^7.16.3":
+"@babel/helper-compilation-targets@^7.12.1", "@babel/helper-compilation-targets@^7.13.0", "@babel/helper-compilation-targets@^7.13.10", "@babel/helper-compilation-targets@^7.16.0", "@babel/helper-compilation-targets@^7.16.3":
   version "7.16.3"
   resolved "https://registry.npmmirror.com/@babel/helper-compilation-targets/download/@babel/helper-compilation-targets-7.16.3.tgz?cache=0&sync_timestamp=1636495286737&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fhelper-compilation-targets%2Fdownload%2F%40babel%2Fhelper-compilation-targets-7.16.3.tgz#5b480cd13f68363df6ec4dc8ac8e2da11363cbf0"
   integrity sha512-vKsoSQAyBmxS35JUOOt+07cLc6Nk/2ljLIHwmq2/NM6hdioUaqEXq/S+nXvbvXbZkNDlWOymPanJGOc4CBjSJA==
@@ -146,7 +177,7 @@
   dependencies:
     "@babel/types" "^7.16.0"
 
-"@babel/helper-function-name@^7.16.0":
+"@babel/helper-function-name@^7.12.13", "@babel/helper-function-name@^7.16.0":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/helper-function-name/download/@babel/helper-function-name-7.16.0.tgz?cache=0&sync_timestamp=1635560911725&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fhelper-function-name%2Fdownload%2F%40babel%2Fhelper-function-name-7.16.0.tgz#b7dd0797d00bbfee4f07e9c4ea5b0e30c8bb1481"
   integrity sha1-t90Hl9ALv+5PB+nE6lsOMMi7FIE=
@@ -183,7 +214,7 @@
   dependencies:
     "@babel/types" "^7.16.0"
 
-"@babel/helper-module-transforms@^7.12.1", "@babel/helper-module-transforms@^7.16.0":
+"@babel/helper-module-transforms@^7.12.1", "@babel/helper-module-transforms@^7.13.0", "@babel/helper-module-transforms@^7.16.0":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/helper-module-transforms/download/@babel/helper-module-transforms-7.16.0.tgz#1c82a8dd4cb34577502ebd2909699b194c3e9bb5"
   integrity sha1-HIKo3UyzRXdQLr0pCWmbGUw+m7U=
@@ -242,14 +273,14 @@
   dependencies:
     "@babel/types" "^7.16.0"
 
-"@babel/helper-split-export-declaration@^7.16.0":
+"@babel/helper-split-export-declaration@^7.12.13", "@babel/helper-split-export-declaration@^7.16.0":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/helper-split-export-declaration/download/@babel/helper-split-export-declaration-7.16.0.tgz?cache=0&sync_timestamp=1635560910991&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fhelper-split-export-declaration%2Fdownload%2F%40babel%2Fhelper-split-export-declaration-7.16.0.tgz#29672f43663e936df370aaeb22beddb3baec7438"
   integrity sha1-KWcvQ2Y+k23zcKrrIr7ds7rsdDg=
   dependencies:
     "@babel/types" "^7.16.0"
 
-"@babel/helper-validator-identifier@^7.15.7":
+"@babel/helper-validator-identifier@^7.12.11", "@babel/helper-validator-identifier@^7.15.7":
   version "7.15.7"
   resolved "https://registry.nlark.com/@babel/helper-validator-identifier/download/@babel/helper-validator-identifier-7.15.7.tgz#220df993bfe904a4a6b02ab4f3385a5ebf6e2389"
   integrity sha1-Ig35k7/pBKSmsCq08zhaXr9uI4k=
@@ -269,7 +300,7 @@
     "@babel/traverse" "^7.16.0"
     "@babel/types" "^7.16.0"
 
-"@babel/helpers@^7.12.1", "@babel/helpers@^7.16.0":
+"@babel/helpers@^7.12.1", "@babel/helpers@^7.13.10", "@babel/helpers@^7.16.0":
   version "7.16.3"
   resolved "https://registry.npmmirror.com/@babel/helpers/download/@babel/helpers-7.16.3.tgz?cache=0&sync_timestamp=1636495894281&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fhelpers%2Fdownload%2F%40babel%2Fhelpers-7.16.3.tgz#27fc64f40b996e7074dc73128c3e5c3e7f55c43c"
   integrity sha512-Xn8IhDlBPhvYTvgewPKawhADichOsbkZuzN7qz2BusOM0brChsyXMDJvldWaYMMUNiCQdQzNEioXTp3sC8Nt8w==
@@ -287,7 +318,12 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.1.0", "@babel/parser@^7.12.3", "@babel/parser@^7.14.7", "@babel/parser@^7.16.0", "@babel/parser@^7.16.3", "@babel/parser@^7.7.0":
+"@babel/parser@7.14.6":
+  version "7.14.6"
+  resolved "https://registry.npmmirror.com/@babel/parser/download/@babel/parser-7.14.6.tgz?cache=0&sync_timestamp=1637103066874&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fparser%2Fdownload%2F%40babel%2Fparser-7.14.6.tgz#d85cc68ca3cac84eae384c06f032921f5227f4b2"
+  integrity sha1-2FzGjKPKyE6uOEwG8DKSH1In9LI=
+
+"@babel/parser@^7.1.0", "@babel/parser@^7.12.3", "@babel/parser@^7.13.0", "@babel/parser@^7.13.10", "@babel/parser@^7.14.7", "@babel/parser@^7.16.0", "@babel/parser@^7.16.3", "@babel/parser@^7.7.0":
   version "7.16.4"
   resolved "https://registry.npmmirror.com/@babel/parser/download/@babel/parser-7.16.4.tgz?cache=0&sync_timestamp=1637103066874&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fparser%2Fdownload%2F%40babel%2Fparser-7.16.4.tgz#d5f92f57cf2c74ffe9b37981c0e72fee7311372e"
   integrity sha512-6V0qdPUaiVHH3RtZeLIsc+6pDhbYzHR8ogA8w+f+Wc77DuXto19g2QUwveINoS34Uw+W8/hQDGJCx+i4n7xcng==
@@ -1172,7 +1208,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/template@^7.10.4", "@babel/template@^7.16.0", "@babel/template@^7.3.3":
+"@babel/template@^7.10.4", "@babel/template@^7.12.13", "@babel/template@^7.16.0", "@babel/template@^7.3.3":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/template/download/@babel/template-7.16.0.tgz#d16a35ebf4cd74e202083356fab21dd89363ddd6"
   integrity sha1-0Wo16/TNdOICCDNW+rId2JNj3dY=
@@ -1180,6 +1216,21 @@
     "@babel/code-frame" "^7.16.0"
     "@babel/parser" "^7.16.0"
     "@babel/types" "^7.16.0"
+
+"@babel/traverse@7.13.0":
+  version "7.13.0"
+  resolved "https://registry.npmmirror.com/@babel/traverse/download/@babel/traverse-7.13.0.tgz?cache=0&sync_timestamp=1636494876795&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Ftraverse%2Fdownload%2F%40babel%2Ftraverse-7.13.0.tgz#6d95752475f86ee7ded06536de309a65fc8966cc"
+  integrity sha1-bZV1JHX4bufe0GU23jCaZfyJZsw=
+  dependencies:
+    "@babel/code-frame" "^7.12.13"
+    "@babel/generator" "^7.13.0"
+    "@babel/helper-function-name" "^7.12.13"
+    "@babel/helper-split-export-declaration" "^7.12.13"
+    "@babel/parser" "^7.13.0"
+    "@babel/types" "^7.13.0"
+    debug "^4.1.0"
+    globals "^11.1.0"
+    lodash "^4.17.19"
 
 "@babel/traverse@^7.1.0", "@babel/traverse@^7.12.1", "@babel/traverse@^7.13.0", "@babel/traverse@^7.16.0", "@babel/traverse@^7.16.3", "@babel/traverse@^7.7.0":
   version "7.16.3"
@@ -1196,7 +1247,16 @@
     debug "^4.1.0"
     globals "^11.1.0"
 
-"@babel/types@^7.0.0", "@babel/types@^7.12.1", "@babel/types@^7.12.6", "@babel/types@^7.16.0", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4", "@babel/types@^7.7.0":
+"@babel/types@7.13.0":
+  version "7.13.0"
+  resolved "https://registry.npmmirror.com/@babel/types/download/@babel/types-7.13.0.tgz#74424d2816f0171b4100f0ab34e9a374efdf7f80"
+  integrity sha1-dEJNKBbwFxtBAPCrNOmjdO/ff4A=
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.12.11"
+    lodash "^4.17.19"
+    to-fast-properties "^2.0.0"
+
+"@babel/types@^7.0.0", "@babel/types@^7.12.1", "@babel/types@^7.12.6", "@babel/types@^7.13.0", "@babel/types@^7.16.0", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4", "@babel/types@^7.7.0":
   version "7.16.0"
   resolved "https://registry.npmmirror.com/@babel/types/download/@babel/types-7.16.0.tgz#db3b313804f96aadd0b776c4823e127ad67289ba"
   integrity sha1-2zsxOAT5aq3Qt3bEgj4SetZyibo=
@@ -1741,6 +1801,19 @@
   version "1.1.2"
   resolved "https://registry.npmmirror.com/@tootallnate/once/download/@tootallnate/once-1.1.2.tgz?cache=0&sync_timestamp=1632734301556&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40tootallnate%2Fonce%2Fdownload%2F%40tootallnate%2Fonce-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha1-zLkURTYBeaBOf+av94wA/8Hur4I=
+
+"@trivago/prettier-plugin-sort-imports@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.npmmirror.com/@trivago/prettier-plugin-sort-imports/download/@trivago/prettier-plugin-sort-imports-3.1.1.tgz#101e34eadb252572ec32aea6d5487d93b90a0037"
+  integrity sha512-T9EJNEOugWts4WxdmpWeY+sp+2fUHhvGh9QSBCowEGJfcbnu355HQRqok5bKwejdieMaI1+uGZhuTNMZwjqOCQ==
+  dependencies:
+    "@babel/core" "7.13.10"
+    "@babel/generator" "7.13.9"
+    "@babel/parser" "7.14.6"
+    "@babel/traverse" "7.13.0"
+    "@babel/types" "7.13.0"
+    javascript-natural-sort "0.7.1"
+    lodash "4.17.21"
 
 "@types/aria-query@^4.2.0":
   version "4.2.2"
@@ -6329,6 +6402,11 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
+javascript-natural-sort@0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npm.taobao.org/javascript-natural-sort/download/javascript-natural-sort-0.7.1.tgz#f9e2303d4507f6d74355a73664d1440fb5a0ef59"
+  integrity sha1-+eIwPUUH9tdDVac2ZNFED7Wg71k=
+
 jest-changed-files@^26.6.2:
   version "26.6.2"
   resolved "https://registry.npmmirror.com/jest-changed-files/download/jest-changed-files-26.6.2.tgz#f6198479e1cc66f22f9ae1e22acaa0b429c042d0"
@@ -7106,7 +7184,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.npm.taobao.org/lodash.uniq/download/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-"lodash@>=3.5 <5", lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.5, lodash@^4.7.0:
+lodash@4.17.21, "lodash@>=3.5 <5", lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.5, lodash@^4.7.0:
   version "4.17.21"
   resolved "https://registry.nlark.com/lodash/download/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=

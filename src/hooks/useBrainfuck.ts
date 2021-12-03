@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { setupProgram } from "../models/Runner";
-import { brainfuckReducer, parse, ProgramState } from "../models/Interpreter";
-import { stringToASCIIs } from "../models/utils";
-import { ReducerAction, ReducerHookReturnType } from "../types";
+
 import { initializeIOStream } from "../models/IOStream";
+import { brainfuckReducer, parse, ProgramState } from "../models/Interpreter";
+import { setupProgram } from "../models/Runner";
+import { stringToASCIIs } from "../models/utils";
+
+import { ReducerAction, ReducerHookReturnType } from "../types";
 
 type BrainfuckAction =
   | ReducerAction<"load", string>
