@@ -45,6 +45,13 @@ const seek = (stream: IOStream, index: number): IOStream => {
   return newStream;
 };
 
+export const initializeIOStream = (size: number): IOStream => ({
+  buffer: [],
+  size: size,
+  pointer: 0,
+  readBuffer: [],
+});
+
 export const ioReducer = (stream: IOStream, action: IOAction): IOStream => {
   switch (action.type) {
     case "read":

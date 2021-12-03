@@ -1,7 +1,7 @@
 import { ReducerAction } from "../types";
 import { ioReducer, IOStream } from "./IOStream";
 
-export type BrainfuckAction = ReducerAction<"next"> | ReducerAction<"write", number[]>;
+export type BrainfuckCoreAction = ReducerAction<"next"> | ReducerAction<"write", number[]>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
 
@@ -130,7 +130,10 @@ const writeToStdin = (state: ProgramState, data: number[]) => {
   return newState;
 };
 
-export const brainfuckReducer = (state: ProgramState, action: BrainfuckAction): ProgramState => {
+export const brainfuckReducer = (
+  state: ProgramState,
+  action: BrainfuckCoreAction
+): ProgramState => {
   switch (action.type) {
     case "next":
       return next(state);
