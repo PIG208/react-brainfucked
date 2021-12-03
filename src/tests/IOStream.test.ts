@@ -1,6 +1,5 @@
-import { ioReducer } from "../models/IOStream";
-import { stringToASCIIs } from "../models/utils";
-
+import { ioReducer } from "../core/IOStream";
+import { stringToASCIIs } from "../core/utils";
 import { MockStream } from "./Fixtures";
 
 test("IOStream read", () => {

@@ -1,7 +1,6 @@
-import { parse } from "../models/Interpreter";
-import { run, runCycles, setupProgram } from "../models/Runner";
-import { ASCIIsToString } from "../models/utils";
-
+import { parse } from "../core/Interpreter";
+import { run, runCycles, setupProgram } from "../core/Runner";
+import { ASCIIsToString } from "../core/utils";
 import { MockStream, nestedLoop, testHelloWorld } from "./Fixtures";
 
 test("interpreter parse", () => {

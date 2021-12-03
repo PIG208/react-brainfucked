@@ -1,10 +1,9 @@
 import { render } from "@testing-library/react";
 import { useEffect } from "react";
 
-import { ASCIIsToString } from "../models/utils";
-
 import { useBrainfuck } from "../hooks/useBrainfuck";
 
+import { ASCIIsToString } from "../core/utils";
 import { testHelloWorld } from "./Fixtures";
 
 test("useBrainfuck basic", () => {

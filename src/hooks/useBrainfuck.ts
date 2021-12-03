@@ -1,10 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { initializeIOStream } from "../models/IOStream";
-import { brainfuckReducer, Instruction, parse, ProgramState } from "../models/Interpreter";
-import { setupProgram } from "../models/Runner";
-import { stringToASCIIs } from "../models/utils";
-
+import { initializeIOStream } from "../core/IOStream";
+import { brainfuckReducer, Instruction, parse, ProgramState } from "../core/Interpreter";
+import { setupProgram } from "../core/Runner";
+import { stringToASCIIs } from "../core/utils";
 import { ReducerAction, ReducerHookReturnType } from "../types";
 
 type BrainfuckAction =

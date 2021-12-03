@@ -1,5 +1,5 @@
-import { IOStream } from "../models/IOStream";
-import { Instruction } from "../models/Interpreter";
+import { IOStream } from "../core/IOStream";
+import { Instruction } from "../core/Interpreter";
 
 export const MockStream = (content: string = ""): IOStream => ({
   buffer: Array.from(content).map((c) => c.charCodeAt(0)),

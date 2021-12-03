@@ -1,5 +1,4 @@
-import { MAX_PROGRAM_CYCLES, run, setupProgram } from "../models/Runner";
-
+import { MAX_PROGRAM_CYCLES, run, setupProgram } from "../core/Runner";
 import { MockStream } from "./Fixtures";
 
 test("runner cycle count", () => {
