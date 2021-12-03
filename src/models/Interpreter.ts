@@ -1,5 +1,7 @@
+import { ReducerAction } from "../types";
 import { IOStream, read, write } from "./IOStream";
 
+export type BrainfuckAction = ReducerAction<"next"> | ReducerAction<"write", number[]>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
 
@@ -16,9 +18,9 @@ export type ProgramState = {
   stdout: IOStream;
 };
 
+// We don't deep copy the array as we don't care
 const copyState = (state: ProgramState): ProgramState => ({
   ...state,
-  memory: Object.assign([], state.memory),
 });
 
 const readMemory = (state: ProgramState) => state.memory[state.dataPointer];
@@ -58,7 +60,7 @@ export const parse = (program: string): Instruction[] => {
   return output;
 };
 
-export const consume = (state: ProgramState): ProgramState => {
+const next = (state: ProgramState): ProgramState => {
   if (isEnded(state)) return state;
 
   let newState = copyState(state);
@@ -115,4 +117,23 @@ export const consume = (state: ProgramState): ProgramState => {
   if (!overridePc) newState.programCounter++;
 
   return newState;
+};
+
+/**
+ * Write directly to the standard input stream
+ */
+const writeToStdin = (state: ProgramState, data: number[]) => {
+  let newState = copyState(state);
+  newState.stdin = write(newState.stdin, data);
+
+  return newState;
+};
+
+export const brainfuckReducer = (state: ProgramState, action: BrainfuckAction): ProgramState => {
+  switch (action.type) {
+    case "next":
+      return next(state);
+    case "write":
+      return writeToStdin(state, action.data);
+  }
 };

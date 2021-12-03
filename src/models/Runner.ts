@@ -1,4 +1,4 @@
-import { ProgramState, Instruction, consume, isEnded } from "./Interpreter";
+import { ProgramState, Instruction, brainfuckReducer, isEnded } from "./Interpreter";
 import { IOStream } from "./IOStream";
 
 export type RunResult = {
@@ -30,7 +30,7 @@ export const setupProgram = (
 export const runCycles = (state: ProgramState, cycles: number): RunResult => {
   let cyclesCount = 0;
   while (!isEnded(state) && cyclesCount++ < cycles) {
-    state = consume(state);
+    state = brainfuckReducer(state, { type: "next" });
   }
   return {
     finalState: state,
@@ -42,7 +42,7 @@ export const runCycles = (state: ProgramState, cycles: number): RunResult => {
 export const run = (state: ProgramState): RunResult => {
   let cycles = 0;
   while (!isEnded(state) && ++cycles < MAX_PROGRAM_CYCLES) {
-    state = consume(state);
+    state = brainfuckReducer(state, { type: "next" });
   }
 
   if (cycles === MAX_PROGRAM_CYCLES && !isEnded(state)) {
