@@ -84,7 +84,9 @@ export const consume = (state: ProgramState): ProgramState => {
       writeMemory(newState, readMemory(newState) - 1);
       break;
     case ",":
-      [newState.stdin, newState.memory[newState.dataPointer]] = read(newState.stdin);
+      newState.stdin = read(newState.stdin, 1);
+      newState.memory[newState.dataPointer] = newState.stdin.readBuffer[0];
+      if (newState.stdin.readBuffer[0] === undefined) throw new Error(`invalid write ${newState.stdin}`);
       break;
     case ".":
       newState.stdout = write(newState.stdout, readMemory(newState));
