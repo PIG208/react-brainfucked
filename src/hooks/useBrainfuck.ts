@@ -6,7 +6,7 @@ import { setupProgram } from "../core/Runner";
 import { stringToASCIIs } from "../core/utils";
 import { ReducerAction, ReducerHookReturnType } from "../types";
 
-type BrainfuckAction =
+export type BrainfuckAction =
   | ReducerAction<"load", string>
   | ReducerAction<"next" | "reset">
   | ReducerAction<"write", string>;

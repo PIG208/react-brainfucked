@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
   display: grid;
   grid-template-columns: [left] 50px [left-padded] auto [right-padded] 50px [right];
@@ -16,3 +16,4 @@
   grid-column: left-padded / right-padded;
   grid-row: top-padded / bottom-padded;
 }
+*/

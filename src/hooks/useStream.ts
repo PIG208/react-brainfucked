@@ -8,6 +8,7 @@ export const useStream = (size: number): ReducerHookReturnType<IOStream, IOActio
     buffer: [],
     size: size,
     pointer: 0,
+    readPointer: 0,
     readBuffer: [],
   });
 

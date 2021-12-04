@@ -8,6 +8,7 @@ export type IOStream = {
   size: number;
   pointer: number;
   // The buffer for the last read
+  readPointer: number;
   readBuffer: number[];
 };
 
@@ -21,10 +22,13 @@ const copyStream = (stream: IOStream) => ({
 
 export const read = (stream: IOStream, size: number): IOStream => {
   let newStream = copyStream(stream);
-  if (newStream.buffer.length <= newStream.pointer) throw new Error("buffer overflowed");
+  if (newStream.buffer.length <= newStream.readPointer) throw new Error("buffer overflowed");
   // Read `size` of bytes from the buffer
-  newStream.readBuffer = newStream.buffer.slice(newStream.pointer, newStream.pointer + size);
-  newStream.pointer += size;
+  newStream.readBuffer = newStream.buffer.slice(
+    newStream.readPointer,
+    newStream.readPointer + size
+  );
+  newStream.readPointer = newStream.readPointer + size;
 
   return newStream;
 };
@@ -42,6 +46,7 @@ export const write = (stream: IOStream, data: number | number[]): IOStream => {
 const seek = (stream: IOStream, index: number): IOStream => {
   let newStream = copyStream(stream);
   newStream.pointer = index;
+  newStream.readPointer = index;
   return newStream;
 };
 
@@ -49,6 +54,7 @@ export const initializeIOStream = (size: number): IOStream => ({
   buffer: [],
   size: size,
   pointer: 0,
+  readPointer: 0,
   readBuffer: [],
 });
 
