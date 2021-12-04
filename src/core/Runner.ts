@@ -1,4 +1,5 @@
 import { IOStream } from "./IOStream";
+import createList from "./ImmutableList";
 import { ProgramState, Instruction, brainfuckReducer, isEnded } from "./Interpreter";
 
 export type RunResult = {
@@ -17,7 +18,7 @@ export const setupProgram = (
 ): ProgramState => ({
   programCounter: 0,
   dataPointer: 0,
-  memory: Array(MEMORY_SIZE).fill(0),
+  memory: createList(Array(MEMORY_SIZE).fill(0)),
   jmpStack: [],
   program: program,
 

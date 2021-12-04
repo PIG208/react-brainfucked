@@ -1,5 +1,6 @@
 import { ReducerAction } from "../types";
 import { ioReducer, IOStream } from "./IOStream";
+import { List } from "./ImmutableList";
 
 export type BrainfuckCoreAction = ReducerAction<"next"> | ReducerAction<"write", number[]>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
@@ -8,7 +9,7 @@ export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
 export type ProgramState = {
   programCounter: number;
   dataPointer: number;
-  memory: number[];
+  memory: List<number>;
   jmpStack: number[];
   program: Instruction[];
 
@@ -18,13 +19,13 @@ export type ProgramState = {
   stdout: IOStream;
 };
 
-// We don't deep copy the array as we don't care
 const copyState = (state: ProgramState): ProgramState => ({
   ...state,
 });
 
-const readMemory = (state: ProgramState) => state.memory[state.dataPointer];
-const writeMemory = (state: ProgramState, data: number) => (state.memory[state.dataPointer] = data);
+const readMemory = (state: ProgramState) => state.memory.query(state.dataPointer);
+const writeMemory = (state: ProgramState, data: number) =>
+  (state.memory = state.memory.update(state.dataPointer, data));
 const fetchInstruction = (state: ProgramState): Instruction => state.program[state.programCounter];
 
 export const isEnded = (state: ProgramState) => state.programCounter === state.program.length;
@@ -87,7 +88,7 @@ const next = (state: ProgramState): ProgramState => {
       break;
     case ",":
       newState.stdin = ioReducer(newState.stdin, { type: "read", data: 1 });
-      newState.memory[newState.dataPointer] = newState.stdin.readBuffer[0];
+      writeMemory(newState, newState.stdin.readBuffer[0]);
       if (newState.stdin.readBuffer[0] === undefined)
         throw new Error(`invalid write ${newState.stdin}`);
       break;
