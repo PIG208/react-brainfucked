@@ -14,6 +14,7 @@ export type ProgramState = {
   program: Instruction[];
 
   skipping: boolean;
+  blocked: boolean;
 
   stdin: IOStream;
   stdout: IOStream;
@@ -66,6 +67,7 @@ const next = (state: ProgramState): ProgramState => {
   if (isEnded(state)) return state;
 
   let newState = copyState(state);
+
   const instruction = fetchInstruction(newState);
   let overridePc = false;
 
@@ -88,7 +90,16 @@ const next = (state: ProgramState): ProgramState => {
       writeMemory(newState, readMemory(newState) - 1);
       break;
     case ",":
+      // When the program is blocked, do not attempt to read again
+      if (newState.blocked) return newState;
+
       newState.stdin = ioReducer(newState.stdin, { type: "read", data: 1 });
+      if (newState.stdin.pendingSize > 0) {
+        // The stream is blocked, do not proceed
+        // The only way to resolve a blocked stream is to dispatch `write`
+        newState.blocked = true;
+        return newState;
+      }
       writeMemory(newState, newState.stdin.readBuffer[0]);
       if (newState.stdin.readBuffer[0] === undefined)
         throw new Error(`invalid write ${newState.stdin}`);
@@ -128,6 +139,9 @@ const next = (state: ProgramState): ProgramState => {
 const writeToStdin = (state: ProgramState, data: number[]) => {
   let newState = copyState(state);
   newState.stdin = ioReducer(newState.stdin, { type: "write", data: data });
+  if (newState.stdin.pendingSize === 0) {
+    newState.blocked = false;
+  }
 
   return newState;
 };

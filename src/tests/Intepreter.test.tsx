@@ -1,6 +1,6 @@
 import { brainfuckReducer, parse } from "../core/Interpreter";
 import { run, runCycles, setupProgram } from "../core/Runner";
-import { ASCIIsToString } from "../core/utils";
+import { ASCIIsToString, stringToASCIIs } from "../core/utils";
 import { MockStream, nestedLoop, testHelloWorld } from "./Fixtures";
 
 test("interpreter parse", () => {
@@ -77,4 +77,26 @@ test("interpreter immutability", () => {
   expect(newState.stdin.buffer).toEqual([123]);
   expect(state.memory.query(0)).toEqual(0);
   expect(newState.memory.query(0)).toEqual(1);
+});
+
+test("intepreter blocking IO", () => {
+  let state = setupProgram([","], MockStream(), MockStream());
+  const initialPc = state.programCounter;
+
+  state = brainfuckReducer(state, { type: "next" });
+  expect(state.stdin.pendingSize).toEqual(1);
+  expect(state.blocked).toBeTruthy();
+  expect(state.programCounter).toEqual(initialPc);
+
+  state = brainfuckReducer(state, { type: "next" });
+  expect(state.stdin.pendingSize).toEqual(1);
+  expect(state.blocked).toBeTruthy();
+  expect(state.programCounter).toEqual(initialPc);
+
+  state = brainfuckReducer(state, { type: "write", data: stringToASCIIs("k") });
+  expect(state.blocked).toBeFalsy();
+
+  state = brainfuckReducer(state, { type: "next" });
+  expect(ASCIIsToString(state.stdin.readBuffer)).toEqual("k");
+  expect(state.memory.query(state.dataPointer)).toEqual("k".charCodeAt(0));
 });
