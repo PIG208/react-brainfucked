@@ -21,12 +21,17 @@ function App() {
 
   return (
     <div className="App">
-      <p id="editor">asd</p>
-      <h1 id="center">react-brainfucked</h1>
-      <Editor code={code} setCode={setCode} enabled={editorEnabled} />
-      <Visualization programState={brainfuck} />
-      <ControlPanel programState={brainfuck} dispatch={dispatch} />
-      <Console programState={brainfuck} dispatch={dispatch} />
+      <main className="App-main">
+        <div>
+          <h1 id="center">react-brainfucked</h1>
+        </div>
+        <div>
+          <Editor code={code} setCode={setCode} enabled={editorEnabled} />
+          <Visualization programState={brainfuck} />
+          <ControlPanel programState={brainfuck} dispatch={dispatch} />
+          <Console programState={brainfuck} dispatch={dispatch} />
+        </div>
+      </main>
     </div>
   );
 }

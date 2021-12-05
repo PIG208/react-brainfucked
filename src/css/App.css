@@ -2,6 +2,7 @@
 
 .App {
   font-family: "Open Sans", sans-serif;
+  padding: 1.5rem;
 }
 
 .btn {
@@ -13,8 +14,8 @@
   border: none;
   border-bottom: 1px white solid;
   border-radius: 3px;
-  padding: .5rem .5rem;
-  background-color: rgba(0,0,0,0);
+  padding: 0.5rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0);
   transition: all 0.2s;
   user-select: none;
 }
@@ -32,14 +33,13 @@
 
 .btn:hover {
   font-size: 1.2rem;
-  padding: .3rem .2rem;
+  padding: 0.3rem 0.2rem;
 }
 
 .btn:hover::after {
   left: 0;
   width: 100%;
 }
-
 
 .btn:active {
   margin-top: 5px;
@@ -49,7 +49,7 @@
 .btn:disabled {
   cursor: auto;
   font-size: 1rem;
-  padding: .5rem .5rem;
+  padding: 0.5rem 0.5rem;
   border-color: white;
   color: grey;
   background-color: transparent;
@@ -59,3 +59,17 @@
   display: none;
 }
 
+.App-main {
+  display: grid;
+  grid-template-columns: 1fr 1.618fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.App-main:nth-child(1) {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.App-main:nth-child(2) {
+  grid-area: 1 / 2 / 2 / 3;
+}

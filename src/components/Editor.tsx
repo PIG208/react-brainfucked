@@ -11,9 +11,12 @@ const Editor = ({ code, setCode, enabled }: EditorProps) => {
     <CodeEditor
       value={code}
       language="brainfuck"
-      placeholder="brainfuck here"
+      placeholder="brainfuck program here"
       onChange={(val) => setCode(val.target.value)}
       padding={10}
+      style={{
+        fontSize: "1.2rem",
+      }}
       disabled={!enabled}
     />
   );

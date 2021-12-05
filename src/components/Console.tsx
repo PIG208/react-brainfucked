@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 
 import { BrainfuckAction } from "../hooks/useBrainfuck";
 
+import "../css/Console.css";
+
 import { ProgramState } from "../core/Interpreter";
 import { ASCIIsToString } from "../core/utils";
 
@@ -21,18 +23,26 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
   );
 
   return (
-    <>
-      <div>
-        <h1>Output</h1>
-        {ioBuffers.output}
+    <div>
+      <div className="console">
+        <div>{ioBuffers.output}</div>
       </div>
-      <div>
-        <h1>Input</h1>
-        {ioBuffers.input}
+      <div className="console with-input">
+        <div>{ioBuffers.input}</div>
+        <div className="console-input">
+          <input
+            value={inputText}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                dispatch({ type: "write", data: inputText });
+                setInputText("");
+              }
+            }}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+        </div>
       </div>
-      <input value={inputText} onChange={(e) => setInputText(e.target.value)} />
-      <button onClick={() => dispatch({ type: "write", data: inputText })}>Enter</button>
-    </>
+    </div>
   );
 };
 

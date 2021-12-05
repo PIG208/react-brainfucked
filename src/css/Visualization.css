@@ -1,3 +1,13 @@
+.program-field {
+  padding: 1rem;
+  border: 1px black solid;
+  height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+}
+
 .program-field > span {
   color: black;
   font-size: 1rem;
