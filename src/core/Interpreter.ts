@@ -30,7 +30,7 @@ const writeMemory = (state: ProgramState, data: number) =>
 const fetchInstruction = (state: ProgramState): Instruction => state.program[state.programCounter];
 
 export const isEnded = (state: ProgramState) => state.programCounter === state.program.length;
-export const isStarted = (state: ProgramState) => state.programCounter > 0;
+export const isStarted = (state: ProgramState) => state.programCounter > 0 || state.blocked;
 
 /**
  * Parse out the initial loop and ignore non-instruction characters

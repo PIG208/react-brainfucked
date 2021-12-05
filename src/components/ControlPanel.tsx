@@ -21,9 +21,11 @@ const ControlPanel = ({ programState, dispatch }: ControlPanelProps) => {
         <button
           className="btn"
           onClick={() => dispatch({ type: "next" })}
-          disabled={isEnded(programState)}
+          disabled={isEnded(programState) || programState.blocked}
         >
-          {isStarted(programState) ? "Step" : "Start"}
+          {isStarted(programState)
+            ? `Step${programState.blocked ? " (input required)" : ""}`
+            : "Start"}
         </button>
       </li>
       <li>

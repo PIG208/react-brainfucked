@@ -8,11 +8,17 @@ export type VisualizationProps = {
 
 const Visualization = ({ programState }: VisualizationProps) => {
   const isCurrentPc = (pc: number) =>
-    pc === programState.programCounter - 1 || (pc === 0 && programState.programCounter === 0);
+    (!programState.blocked &&
+      (pc === programState.programCounter - 1 ||
+        (pc === 0 && programState.programCounter === 0))) ||
+    (programState.blocked && pc === programState.programCounter);
 
   return (
     <div>
-      <p>program counter: {programState.programCounter}</p>
+      <p>
+        program counter: {programState.programCounter}
+        {programState.blocked ? " (waiting for input)" : ""}
+      </p>
       <p>data pointer: {programState.dataPointer}</p>
       <p>current data: {programState.memory.query(programState.dataPointer)}</p>
       <p>memory size: {programState.memory.size()}</p>
