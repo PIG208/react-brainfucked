@@ -11,10 +11,10 @@ const Visualization = ({ programState }: VisualizationProps) => {
     pc === programState.programCounter - 1 || (pc === 0 && programState.programCounter === 0);
 
   return (
-    <>
+    <div>
       <p>program counter: {programState.programCounter}</p>
       <p>data pointer: {programState.dataPointer}</p>
-      <p>curretn data: {programState.memory.query(programState.dataPointer)}</p>
+      <p>current data: {programState.memory.query(programState.dataPointer)}</p>
       <div className="program-field">
         {programState.program.map((instruction, index) => (
           <span
@@ -25,7 +25,7 @@ const Visualization = ({ programState }: VisualizationProps) => {
           </span>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
 import { BrainfuckAction } from "../hooks/useBrainfuck";
 
+import "../css/ControlPanel.css";
+
 import { ProgramState, isEnded, isStarted } from "../core/Interpreter";
 
 export type ControlPanelProps = {
@@ -9,17 +11,25 @@ export type ControlPanelProps = {
 
 const ControlPanel = ({ programState, dispatch }: ControlPanelProps) => {
   return (
-    <ul>
+    <ul className="panel">
       <li>
-        <button onClick={() => dispatch({ type: "run" })}>Run</button>
+        <button className="btn" onClick={() => dispatch({ type: "run" })}>
+          Run
+        </button>
       </li>
       <li>
-        <button onClick={() => dispatch({ type: "next" })} disabled={isEnded(programState)}>
+        <button
+          className="btn"
+          onClick={() => dispatch({ type: "next" })}
+          disabled={isEnded(programState)}
+        >
           {isStarted(programState) ? "Step" : "Start"}
         </button>
       </li>
       <li>
-        <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+        <button className="btn" onClick={() => dispatch({ type: "reset" })}>
+          Reset
+        </button>
       </li>
     </ul>
   );
