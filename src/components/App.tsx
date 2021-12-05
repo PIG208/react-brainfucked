@@ -12,7 +12,7 @@ import Visualization from "./Visualization";
 function App() {
   const [code, setCode] = useState("");
   const [brainfuck, dispatch] = useBrainfuck(code);
-  const [editorEnabled, _] = useState(true);
+  const [editorEnabled] = useState(true);
 
   useEffect(() => {
     dispatch({ type: "load", data: code });

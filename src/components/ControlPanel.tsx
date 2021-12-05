@@ -1,6 +1,6 @@
 import { BrainfuckAction } from "../hooks/useBrainfuck";
 
-import { ProgramState, isEnded } from "../core/Interpreter";
+import { ProgramState, isEnded, isStarted } from "../core/Interpreter";
 
 export type ControlPanelProps = {
   programState: ProgramState;
@@ -11,8 +11,11 @@ const ControlPanel = ({ programState, dispatch }: ControlPanelProps) => {
   return (
     <ul>
       <li>
+        <button onClick={() => dispatch({ type: "run" })}>Run</button>
+      </li>
+      <li>
         <button onClick={() => dispatch({ type: "next" })} disabled={isEnded(programState)}>
-          Next
+          {isStarted(programState) ? "Step" : "Start"}
         </button>
       </li>
       <li>

@@ -2,13 +2,13 @@ import { useCallback, useMemo, useState } from "react";
 
 import { initializeIOStream } from "../core/IOStream";
 import { brainfuckReducer, Instruction, parse, ProgramState } from "../core/Interpreter";
-import { setupProgram } from "../core/Runner";
+import { run, setupProgram } from "../core/Runner";
 import { stringToASCIIs } from "../core/utils";
 import { ReducerAction, ReducerHookReturnType } from "../types";
 
 export type BrainfuckAction =
   | ReducerAction<"load", string>
-  | ReducerAction<"next" | "reset">
+  | ReducerAction<"next" | "reset" | "run">
   | ReducerAction<"write", string>;
 const DEFAULT_STREAM_SIZE = 2 << 10;
 const setup = (parsed: Instruction[]) =>
@@ -35,6 +35,9 @@ export const useBrainfuck = (
           break;
         case "next":
           setProgramState((programState) => brainfuckReducer(programState, { type: "next" }));
+          break;
+        case "run":
+          setProgramState((programState) => run(programState).finalState);
           break;
         case "reset":
           setProgramState(setup(parsedProgram));

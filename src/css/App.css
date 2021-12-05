@@ -1,19 +1,5 @@
-/*.App {
-  text-align: center;
-  display: grid;
-  grid-template-columns: [left] 50px [left-padded] auto [right-padded] 50px [right];
-  grid-template-rows: [top] 50px [top-padded] auto [bottom-padded] 50px [bottom];
-  height: 100vh;
-}
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Lora&family=Open+Sans:wght@300&family=Overpass&display=swap");
 
-#icon {
-  grid-column: left / left-padded;
-  grid-row: top / top-padded;
-  background-color: blue;
+.App {
+  font-family: "Open Sans", sans-serif;
 }
-
-#center {
-  grid-column: left-padded / right-padded;
-  grid-row: top-padded / bottom-padded;
-}
-*/
