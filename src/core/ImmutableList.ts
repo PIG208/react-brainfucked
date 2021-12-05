@@ -13,7 +13,7 @@ const buildTree = <V>(data: V[], start: number, end: number): TreeNode<V> => {
   const left = start < mid ? buildTree(data, start, mid - 1) : undefined;
   const right = end > mid ? buildTree(data, mid + 1, end) : undefined;
   return {
-    size: (left?.size ?? 0) + (right?.size ?? 0),
+    size: (left?.size ?? 0) + (right?.size ?? 0) + 1,
     key: mid,
     value: data[mid],
     left: left,
@@ -82,6 +82,10 @@ export class List<V> {
     let result: V[] = [];
     sliceTree(result, start, end, this.root);
     return result;
+  }
+
+  size(): number {
+    return this.root.size;
   }
 }
 

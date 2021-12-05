@@ -15,6 +15,7 @@ const Visualization = ({ programState }: VisualizationProps) => {
       <p>program counter: {programState.programCounter}</p>
       <p>data pointer: {programState.dataPointer}</p>
       <p>current data: {programState.memory.query(programState.dataPointer)}</p>
+      <p>memory size: {programState.memory.size()}</p>
       <div className="program-field">
         {programState.program.map((instruction, index) => (
           <span
