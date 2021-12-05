@@ -48,7 +48,7 @@ export const run = (state: ProgramState): RunResult => {
   }
 
   if (cycles === MAX_PROGRAM_CYCLES && !isEnded(state)) {
-    console.error("The program runs exceeding the time limit");
+    console.error("Time limit exceed");
   }
 
   return {

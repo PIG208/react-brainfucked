@@ -17,6 +17,16 @@ test("runner infinite loop", () => {
   let state = setupProgram(["+", "[", "]"], MockStream(), MockStream());
 
   let result = run(state);
-  expect(consoleSpy).toBeCalledWith("The program runs exceeding the time limit");
+  expect(consoleSpy).toBeCalledWith("Time limit exceed");
+  expect(result.numCycles).toEqual(MAX_PROGRAM_CYCLES);
+});
+
+test("runner wait forever for input", () => {
+  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+  let state = setupProgram([","], MockStream(), MockStream());
+
+  let result = run(state);
+  expect(consoleSpy).toBeCalledWith("Time limit exceed");
+  expect(result.finalState.blocked).toBeTruthy();
   expect(result.numCycles).toEqual(MAX_PROGRAM_CYCLES);
 });
