@@ -10,6 +10,7 @@ export const useStream = (size: number): ReducerHookReturnType<IOStream, IOActio
     pointer: 0,
     readPointer: 0,
     readBuffer: [],
+    pendingSize: 0,
   });
 
   const dispatch = (action: IOAction) => {

@@ -23,6 +23,7 @@ export const setupProgram = (
   program: program,
 
   skipping: false,
+  blocked: false,
 
   stdin: stdin,
   stdout: stdout,

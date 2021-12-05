@@ -7,6 +7,7 @@ export const MockStream = (content: string = ""): IOStream => ({
   pointer: 0,
   readPointer: 0,
   readBuffer: [],
+  pendingSize: 0,
 });
 
 export type Fixture = {
