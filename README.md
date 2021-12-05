@@ -6,6 +6,15 @@
 
 An implementation and visualization for Brainfuck.
 
+## Features
+
+- Functional programming flavored interpreter based on reducers and immutable states
+- Full TypeScript support
+- Blocking I/O streams simulation
+- Visual step debugging tool
+- Decoupled data-driven React components
+- Checked by automated test workflows
+
 ## Project
 
 This project is divided into four main components with Non-UI and UI parts:
