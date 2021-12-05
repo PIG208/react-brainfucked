@@ -1,7 +1,6 @@
 {
   "name": "react-brainfucked",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -22,7 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "prettier src --write",
-    "check-lint": "prettier src --check"
+    "check-lint": "prettier src --check",
+    "deploy": "gh-pages -d build -b gh-pages"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.1.1",
+    "gh-pages": "^3.2.3",
     "prettier": "^2.5.0"
   }
 }
