@@ -48,7 +48,7 @@ export const parse = (program: string): Instruction[] => {
         count--;
       }
       if (index > 30000) {
-        throw new Error("Unbalanced brackets");
+        return [];
       }
       index++;
     }
