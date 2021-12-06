@@ -5,6 +5,7 @@
   border-radius: var(--border-radius);
   height: 100px;
   position: relative;
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

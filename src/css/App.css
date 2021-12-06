@@ -74,6 +74,5 @@
 @media (max-width: 768px) {
   .App-main > div {
     min-width: 80vw;
-    max-width: unset;
   }
 }
