@@ -24,13 +24,20 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
 
   return (
     <div>
+      <p>Output</p>
       <div className="console">
-        <div>{ioBuffers.output}</div>
+        <div className="console-text">
+          <pre>{ioBuffers.output}</pre>
+        </div>
       </div>
+      <p>Input</p>
       <div className="console with-input">
-        <div>{ioBuffers.input}</div>
+        <div className="console-text">
+          <pre>{ioBuffers.input}</pre>
+        </div>
         <div className="console-input">
           <input
+            placeholder="This is the console"
             value={inputText}
             onKeyUp={(e) => {
               if (e.key === "Enter") {
@@ -38,7 +45,7 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
                 setInputText("");
               }
             }}
-            onChange={(e) => setInputText(e.target.value)}
+            onChange={(e) => setInputText(e.target.value + "\n")}
           />
         </div>
       </div>

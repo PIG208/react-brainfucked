@@ -3,6 +3,7 @@
 .App {
   font-family: "Open Sans", sans-serif;
   padding: 1.5rem;
+  --border-radius: 5px;
 }
 
 .btn {
@@ -60,16 +61,19 @@
 }
 
 .App-main {
-  display: grid;
-  grid-template-columns: 1fr 1.618fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.App-main:nth-child(1) {
-  grid-area: 1 / 1 / 2 / 2;
+.App-main > div {
+  min-width: 40vw;
+  max-width: 500px;
 }
-.App-main:nth-child(2) {
-  grid-area: 1 / 2 / 2 / 3;
+
+@media (max-width: 768px) {
+  .App-main > div {
+    min-width: 80vw;
+    max-width: unset;
+  }
 }

@@ -14,25 +14,30 @@ const Visualization = ({ programState }: VisualizationProps) => {
     (programState.blocked && pc === programState.programCounter);
 
   return (
-    <div>
-      <p>
-        program counter: {programState.programCounter}
-        {programState.blocked ? " (waiting for input)" : ""}
-      </p>
-      <p>data pointer: {programState.dataPointer}</p>
-      <p>current data: {programState.memory.query(programState.dataPointer)}</p>
-      <p>memory size: {programState.memory.size()}</p>
-      <div className="program-field">
-        {programState.program.map((instruction, index) => (
-          <span
-            key={index}
-            className={isStarted(programState) && isCurrentPc(index) ? "highlighted" : ""}
-          >
-            {instruction}
-          </span>
-        ))}
+    <>
+      <p>Visualization</p>
+      <div className="visualization">
+        <div className="program-field">
+          {programState.program.map((instruction, index) => (
+            <span
+              key={index}
+              className={isStarted(programState) && isCurrentPc(index) ? "highlighted" : ""}
+            >
+              {instruction}
+            </span>
+          ))}
+          <p>parsed program</p>
+        </div>
+        <div>
+          <p>
+            program counter: {programState.programCounter}
+            {programState.blocked ? " (waiting for input)" : ""}
+          </p>
+          <p>data pointer: {programState.dataPointer}</p>
+          <p>current data: {programState.memory.query(programState.dataPointer)}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

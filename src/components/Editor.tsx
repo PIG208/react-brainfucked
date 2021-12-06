@@ -8,17 +8,21 @@ export type EditorProps = {
 
 const Editor = ({ code, setCode, enabled }: EditorProps) => {
   return (
-    <CodeEditor
-      value={code}
-      language="brainfuck"
-      placeholder="brainfuck program here"
-      onChange={(val) => setCode(val.target.value)}
-      padding={10}
-      style={{
-        fontSize: "1.2rem",
-      }}
-      disabled={!enabled}
-    />
+    <>
+      <p>Editor</p>
+      <CodeEditor
+        value={code}
+        language="brainfuck"
+        placeholder="brainfuck program here"
+        onChange={(val) => setCode(val.target.value)}
+        padding={10}
+        style={{
+          border: "1px solid black",
+          borderRadius: "var(--border-radius)",
+        }}
+        disabled={!enabled}
+      />
+    </>
   );
 };
 
