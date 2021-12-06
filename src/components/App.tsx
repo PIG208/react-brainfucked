@@ -28,7 +28,7 @@ function App() {
         <div>
           <Editor code={code} setCode={setCode} enabled={editorEnabled} />
           <Visualization programState={brainfuck} />
-          <ControlPanel programState={brainfuck} dispatch={dispatch} />
+          <ControlPanel programState={brainfuck} setCode={setCode} dispatch={dispatch} />
           <Console programState={brainfuck} dispatch={dispatch} />
         </div>
       </main>

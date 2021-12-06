@@ -3,13 +3,15 @@ import { BrainfuckAction } from "../hooks/useBrainfuck";
 import "../css/ControlPanel.css";
 
 import { ProgramState, isEnded, isStarted } from "../core/Interpreter";
+import { testHelloWorld } from "../tests/Fixtures";
 
 export type ControlPanelProps = {
   programState: ProgramState;
+  setCode: (code: string) => void;
   dispatch: (action: BrainfuckAction) => void;
 };
 
-const ControlPanel = ({ programState, dispatch }: ControlPanelProps) => {
+const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) => {
   return (
     <>
       <p>
@@ -46,6 +48,11 @@ const ControlPanel = ({ programState, dispatch }: ControlPanelProps) => {
             disabled={programState.program.length === 0}
           >
             Reset
+          </button>
+        </li>
+        <li>
+          <button className="btn" onClick={() => setCode(testHelloWorld.raw)}>
+            Hello World!
           </button>
         </li>
       </ul>
