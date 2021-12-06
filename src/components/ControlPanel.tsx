@@ -11,29 +11,45 @@ export type ControlPanelProps = {
 
 const ControlPanel = ({ programState, dispatch }: ControlPanelProps) => {
   return (
-    <ul className="panel">
-      <li>
-        <button className="btn" onClick={() => dispatch({ type: "run" })}>
-          Run
-        </button>
-      </li>
-      <li>
-        <button
-          className="btn"
-          onClick={() => dispatch({ type: "next" })}
-          disabled={isEnded(programState) || programState.blocked}
-        >
-          {isStarted(programState)
-            ? `Step${programState.blocked ? " (input required)" : ""}`
-            : "Start"}
-        </button>
-      </li>
-      <li>
-        <button className="btn" onClick={() => dispatch({ type: "reset" })}>
-          Reset
-        </button>
-      </li>
-    </ul>
+    <>
+      <p>
+        Control Panel{" "}
+        {programState.program.length === 0 && (
+          <span className="note">(enter any bf program to get started)</span>
+        )}
+      </p>
+      <ul className="panel">
+        <li>
+          <button
+            className="btn"
+            onClick={() => dispatch({ type: "run" })}
+            disabled={programState.program.length === 0}
+          >
+            Run
+          </button>
+        </li>
+        <li>
+          <button
+            className="btn"
+            onClick={() => dispatch({ type: "next" })}
+            disabled={isEnded(programState) || programState.blocked}
+          >
+            {isStarted(programState)
+              ? `Step${programState.blocked ? " (input required)" : ""}`
+              : "Start"}
+          </button>
+        </li>
+        <li>
+          <button
+            className="btn"
+            onClick={() => dispatch({ type: "reset" })}
+            disabled={programState.program.length === 0}
+          >
+            Reset
+          </button>
+        </li>
+      </ul>
+    </>
   );
 };
 

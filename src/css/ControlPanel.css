@@ -5,3 +5,8 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.note {
+  margin: 0;
+  color: rgb(100, 100, 100);
+}
