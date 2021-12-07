@@ -15,7 +15,7 @@ const Visualization = ({ programState }: VisualizationProps) => {
 
   return (
     <>
-      <p>Visualization</p>
+      <h2>Visualization</h2>
       <div className="visualization">
         <div className="program-field">
           {programState.program.map((instruction, index) => (

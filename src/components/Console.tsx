@@ -24,13 +24,13 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
 
   return (
     <div>
-      <p>Output</p>
+      <h2>Output</h2>
       <div className="console">
         <div className="console-text">
           <pre>{ioBuffers.output}</pre>
         </div>
       </div>
-      <p>Input</p>
+      <h2>Output</h2>
       <div className="console with-input">
         <div className="console-text">
           <pre>{ioBuffers.input}</pre>

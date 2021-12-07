@@ -9,7 +9,7 @@ export type EditorProps = {
 const Editor = ({ code, setCode, enabled }: EditorProps) => {
   return (
     <>
-      <p>Editor</p>
+      <h2>Editor</h2>
       <CodeEditor
         value={code}
         language="brainfuck"

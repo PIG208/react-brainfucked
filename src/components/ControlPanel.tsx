@@ -14,12 +14,12 @@ export type ControlPanelProps = {
 const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) => {
   return (
     <>
-      <p>
+      <h2>
         Control Panel{" "}
         {programState.program.length === 0 && (
           <span className="note">(enter any bf program to get started)</span>
         )}
-      </p>
+      </h2>
       <ul className="panel">
         <li>
           <button
