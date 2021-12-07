@@ -1,4 +1,11 @@
-.manual-table th, td{
-    text-align: left;
-    padding-left: 10px;
+.manual-table th,
+td {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.bordered-text {
+  font-size: 0.8rem;
+  padding: 0.1rem;
+  border: 1px solid black;
 }

@@ -7,6 +7,7 @@ import "../css/App.css";
 import Console from "./Console";
 import ControlPanel from "./ControlPanel";
 import Editor from "./Editor";
+import UserManual from "./UserManual";
 import Visualization from "./Visualization";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Visualization programState={brainfuck} />
           <ControlPanel programState={brainfuck} setCode={setCode} dispatch={dispatch} />
           <Console programState={brainfuck} dispatch={dispatch} />
+          <UserManual />
         </div>
       </main>
     </div>
