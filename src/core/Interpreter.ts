@@ -129,10 +129,10 @@ const next = (state: ProgramState, continuing: boolean = false): ProgramState =>
       newState.dataPointer--;
       break;
     case "+":
-      writeMemory(newState, readMemory(newState) + 1);
+      writeMemory(newState, readMemory(newState) + (1 % 256));
       break;
     case "-":
-      writeMemory(newState, readMemory(newState) - 1);
+      writeMemory(newState, (readMemory(newState) - 1 + 256) % 256);
       break;
     case ",":
       newState.stdin = ioReducer(newState.stdin, { type: "read", data: 1 });

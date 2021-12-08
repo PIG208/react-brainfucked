@@ -156,3 +156,12 @@ test("intepreter breakpoints trigger multiple", () => {
 
   expect(isEnded(state)).toBeTruthy();
 });
+
+test("intepreter underflow", () => {
+  let state = setupTestProgram("-[->+<]");
+
+  state = run(state).finalState;
+
+  expect(state.memory.query(1)).toEqual(255);
+  expect(isEnded(state)).toBeTruthy();
+});
