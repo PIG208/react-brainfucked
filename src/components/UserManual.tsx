@@ -58,6 +58,10 @@ const UserManual = () => {
         You can also step through the program one cycle by one cycle after pressing the{" "}
         <span className="bordered-text">Start</span> button.
       </p>
+      <p>
+        The <span className="bordered-text">Last read</span> section indicates what the program has
+        just read from the user input
+      </p>
     </>
   );
 };

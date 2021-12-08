@@ -18,6 +18,7 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
     () => ({
       output: ASCIIsToString(programState.stdout.buffer),
       input: ASCIIsToString(programState.stdin.buffer),
+      inputBuffer: `"${ASCIIsToString(programState.stdin.readBuffer)}"`,
     }),
     [programState]
   );
@@ -30,7 +31,17 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
           <pre>{ioBuffers.output}</pre>
         </div>
       </div>
-      <h2>Output</h2>
+      <h2>Input</h2>
+      <div>
+        Last read:{" "}
+        {ioBuffers.inputBuffer !== '""' ? (
+          <>
+            <span>{ioBuffers.inputBuffer}</span>&nbsp; at {programState.stdin.readPointer}
+          </>
+        ) : (
+          "(empty)"
+        )}
+      </div>
       <div className="console with-input">
         <div className="console-text">
           <pre>{ioBuffers.input}</pre>
