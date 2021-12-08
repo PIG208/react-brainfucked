@@ -48,12 +48,11 @@ const UserManual = () => {
             <code>[</code>
           </td>
         </tr>
-        <p>
-          Enter your program in the <span className="bordered-text">Editor</span>. If it is
-          nonempty, you should be able to click on <span className="bordered-text">Run</span> to run
-          it.
-        </p>
       </table>
+      <p>
+        Enter your program in the <span className="bordered-text">Editor</span>. If it is nonempty,
+        you should be able to click on <span className="bordered-text">Run</span> to run it.
+      </p>
       <p>
         You can also step through the program one cycle by one cycle after pressing the{" "}
         <span className="bordered-text">Start</span> button.
