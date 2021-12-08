@@ -22,8 +22,10 @@ export const setupProgram = (
   jmpStack: [],
   program: program,
 
+  breakpoints: [],
   skipping: false,
   blocked: false,
+  blockType: "none",
 
   stdin: stdin,
   stdout: stdout,

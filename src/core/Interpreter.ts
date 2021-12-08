@@ -1,10 +1,16 @@
+import binarySearch from "binarysearch";
+
 import { ReducerAction } from "../types";
 import { ioReducer, IOStream } from "./IOStream";
 import { List } from "./ImmutableList";
 
-export type BrainfuckCoreAction = ReducerAction<"next"> | ReducerAction<"write", number[]>;
+export type BrainfuckCoreAction =
+  | ReducerAction<"next" | "continue">
+  | ReducerAction<"breakpoint", number>
+  | ReducerAction<"write", number[]>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
+export type BlockType = "none" | "io" | "breakpoint";
 
 export type ProgramState = {
   programCounter: number;
@@ -13,8 +19,10 @@ export type ProgramState = {
   jmpStack: number[];
   program: Instruction[];
 
+  breakpoints: number[];
   skipping: boolean;
   blocked: boolean;
+  blockType: BlockType;
 
   stdin: IOStream;
   stdout: IOStream;
@@ -22,6 +30,9 @@ export type ProgramState = {
 
 const copyState = (state: ProgramState): ProgramState => ({
   ...state,
+  // TODO: Implement immutable dynamic list
+  jmpStack: state.jmpStack.slice(0),
+  breakpoints: state.breakpoints.slice(0),
 });
 
 const readMemory = (state: ProgramState) => state.memory.query(state.dataPointer);
@@ -63,10 +74,17 @@ export const parse = (program: string): Instruction[] => {
   return output;
 };
 
-const next = (state: ProgramState): ProgramState => {
-  if (isEnded(state)) return state;
+const next = (state: ProgramState, continuing: boolean = false): ProgramState => {
+  if (isEnded(state) || state.blocked) return state;
 
   let newState = copyState(state);
+
+  if (binarySearch(newState.breakpoints, newState.programCounter) >= 0 && !continuing) {
+    // Breakpoint is triggered, it has a higher priority than the io block
+    newState.blocked = true;
+    newState.blockType = "breakpoint";
+    return newState;
+  }
 
   const instruction = fetchInstruction(newState);
   let overridePc = false;
@@ -90,14 +108,12 @@ const next = (state: ProgramState): ProgramState => {
       writeMemory(newState, readMemory(newState) - 1);
       break;
     case ",":
-      // When the program is blocked, do not attempt to read again
-      if (newState.blocked) return newState;
-
       newState.stdin = ioReducer(newState.stdin, { type: "read", data: 1 });
       if (newState.stdin.pendingSize > 0) {
         // The stream is blocked, do not proceed
         // The only way to resolve a blocked stream is to dispatch `write`
         newState.blocked = true;
+        newState.blockType = "io";
         return newState;
       }
       writeMemory(newState, newState.stdin.readBuffer[0]);
@@ -139,8 +155,40 @@ const next = (state: ProgramState): ProgramState => {
 const writeToStdin = (state: ProgramState, data: number[]) => {
   let newState = copyState(state);
   newState.stdin = ioReducer(newState.stdin, { type: "write", data: data });
-  if (newState.stdin.pendingSize === 0) {
+  if (newState.stdin.pendingSize === 0 && newState.blockType === "io") {
     newState.blocked = false;
+    newState.blockType = "none";
+  }
+
+  return newState;
+};
+
+const unblockBreakpoint = (state: ProgramState) => {
+  let newState = copyState(state);
+  if (newState.blocked && newState.blockType === "breakpoint") {
+    newState.blocked = false;
+    newState.blockType = "none";
+  }
+
+  return newState;
+};
+
+const breakpoint = (state: ProgramState, breakpoint: number) => {
+  let newState = copyState(state);
+  for (let i = 0; i <= newState.breakpoints.length; i++) {
+    if (newState.breakpoints[i] === breakpoint) {
+      newState.breakpoints = newState.breakpoints
+        .slice(0, i)
+        .concat(newState.breakpoints.slice(i + 1, newState.breakpoints.length));
+      return newState;
+    }
+
+    if (i === newState.breakpoints.length || newState.breakpoints[i] > breakpoint) {
+      newState.breakpoints = newState.breakpoints
+        .slice(0, i)
+        .concat([breakpoint], newState.breakpoints.slice(i, newState.breakpoints.length));
+      return newState;
+    }
   }
 
   return newState;
@@ -155,5 +203,9 @@ export const brainfuckReducer = (
       return next(state);
     case "write":
       return writeToStdin(state, action.data);
+    case "continue":
+      return next(unblockBreakpoint(state), true);
+    case "breakpoint":
+      return breakpoint(state, action.data);
   }
 };

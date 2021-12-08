@@ -1,4 +1,4 @@
-import { brainfuckReducer, parse } from "../core/Interpreter";
+import { brainfuckReducer, isEnded, parse } from "../core/Interpreter";
 import { run, runCycles, setupProgram } from "../core/Runner";
 import { ASCIIsToString, stringToASCIIs } from "../core/utils";
 import { MockStream, nestedLoop, testHelloWorld } from "./Fixtures";
@@ -99,4 +99,68 @@ test("intepreter blocking IO", () => {
   state = brainfuckReducer(state, { type: "next" });
   expect(ASCIIsToString(state.stdin.readBuffer)).toEqual("k");
   expect(state.memory.query(state.dataPointer)).toEqual("k".charCodeAt(0));
+});
+
+test("interpreter breakpoints toggle", () => {
+  let state = setupProgram([","], MockStream(), MockStream());
+
+  state = brainfuckReducer(state, { type: "breakpoint", data: 2 });
+  expect(state.breakpoints).toEqual([2]);
+
+  state = brainfuckReducer(state, { type: "breakpoint", data: 4 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 5 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 7 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 1 });
+  expect(state.breakpoints).toEqual([1, 2, 4, 5, 7]);
+
+  state = brainfuckReducer(state, { type: "breakpoint", data: 3 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 2 });
+  expect(state.breakpoints).toEqual([1, 3, 4, 5, 7]);
+});
+
+test("intepreter breakpoints trigger", () => {
+  let state = setupProgram(["+", "+", "+", "[", "-", "]"], MockStream("a"), MockStream());
+
+  state = brainfuckReducer(state, { type: "breakpoint", data: 4 });
+  state = runCycles(state, 5).finalState;
+
+  expect(state.blocked).toBeTruthy();
+  expect(state.blockType).toEqual("breakpoint");
+
+  state = brainfuckReducer(state, { type: "continue" });
+  expect(state.blocked).toBeFalsy();
+  expect(state.blockType).toEqual("none");
+
+  state = runCycles(state, 100).finalState;
+  expect(state.blocked).toBeTruthy();
+
+  state = brainfuckReducer(state, { type: "continue" });
+  expect(isEnded(runCycles(state, 100).finalState)).toBeFalsy();
+
+  // toggle off the breakpoint
+  state = run(brainfuckReducer(state, { type: "breakpoint", data: 4 })).finalState;
+  expect(isEnded(state)).toBeTruthy();
+});
+
+test("intepreter breakpoints trigger multiple", () => {
+  let state = setupProgram(["+", "+", "+", "+"], MockStream("a"), MockStream());
+
+  state = brainfuckReducer(state, { type: "breakpoint", data: 1 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 2 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 0 });
+  state = brainfuckReducer(state, { type: "breakpoint", data: 3 });
+
+  state = brainfuckReducer(state, { type: "next" });
+
+  for (let i = 0; i < 4; i++) {
+    expect(state.blocked).toBeTruthy();
+    expect(state.blockType).toEqual("breakpoint");
+
+    state = brainfuckReducer(state, { type: "continue" });
+    expect(state.blocked).toBeFalsy();
+    expect(state.blockType).toEqual("none");
+    state = brainfuckReducer(state, { type: "next" });
+  }
+
+  expect(isEnded(state)).toBeTruthy();
 });
