@@ -1,14 +1,14 @@
 import { brainfuckReducer, isEnded, parse } from "../core/Interpreter";
-import { run, runCycles, setupProgram } from "../core/Runner";
+import { run, runCycles, setupTestProgram } from "../core/Runner";
 import { ASCIIsToString, stringToASCIIs } from "../core/utils";
-import { MockStream, nestedLoop, testHelloWorld } from "./Fixtures";
+import { nestedLoop, testHelloWorld } from "./Fixtures";
 
 test("interpreter parse", () => {
   expect(parse(testHelloWorld.raw)).toEqual(testHelloWorld.parsed);
 });
 
 test("interpreter commands basic +-", () => {
-  let state = setupProgram(["+", "+", "-"], MockStream(), MockStream());
+  let state = setupTestProgram("++-");
 
   state = runCycles(state, 2).finalState;
   expect(state.memory.query(0)).toEqual(2);
@@ -18,36 +18,28 @@ test("interpreter commands basic +-", () => {
 });
 
 test("interpreter commands basic <>", () => {
-  let state = setupProgram(
-    ["+", ">", "+", "+", ">", ">", "+", "<", "<", "<", "-"],
-    MockStream(),
-    MockStream()
-  );
+  let state = setupTestProgram("+>++>>+<<<-");
 
   state = run(state).finalState;
   expect(state.memory.slice(0, 4)).toEqual([0, 2, 0, 1]);
 });
 
 test("interpreter commands basic ,.", () => {
-  let state = setupProgram([",", "."], MockStream("test"), MockStream());
+  let state = setupTestProgram(",.", "test");
 
   state = run(state).finalState;
   expect(ASCIIsToString(state.stdout.buffer.slice(0, 1))).toEqual("t");
 });
 
 test("interpreter commands basic []", () => {
-  let state = setupProgram(
-    [">", "+", "+", "+", "+", "[", ">", ",", ".", "<", "-", "]"],
-    MockStream("test"),
-    MockStream()
-  );
+  let state = setupTestProgram(">++++[>,.<-]", "test");
 
   const result = run(state);
   expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 4))).toEqual("test");
 });
 
 test("interpreter commands advanced []", () => {
-  let state = setupProgram(nestedLoop.parsed, MockStream("test"), MockStream());
+  let state = setupTestProgram(nestedLoop.raw, "test");
 
   const result = run(state);
   expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 4))).toEqual("test");
@@ -56,7 +48,7 @@ test("interpreter commands advanced []", () => {
 });
 
 test("interpreter helloworld", () => {
-  let state = setupProgram(testHelloWorld.parsed, MockStream(), MockStream());
+  let state = setupTestProgram(testHelloWorld.raw);
 
   const result = run(state);
   expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 12))).toEqual("Hello World!");
@@ -64,7 +56,7 @@ test("interpreter helloworld", () => {
 });
 
 test("interpreter immutability", () => {
-  const state = setupProgram(["+", "+"], MockStream(), MockStream());
+  const state = setupTestProgram("++");
 
   expect(state.memory.query(0)).toEqual(0);
   expect(state.stdin.buffer.length).toEqual(0);
@@ -80,7 +72,7 @@ test("interpreter immutability", () => {
 });
 
 test("intepreter blocking IO", () => {
-  let state = setupProgram([","], MockStream(), MockStream());
+  let state = setupTestProgram(",");
   const initialPc = state.programCounter;
 
   state = brainfuckReducer(state, { type: "next" });
@@ -102,7 +94,7 @@ test("intepreter blocking IO", () => {
 });
 
 test("interpreter breakpoints toggle", () => {
-  let state = setupProgram([","], MockStream(), MockStream());
+  let state = setupTestProgram(",");
 
   state = brainfuckReducer(state, { type: "breakpoint", data: 2 });
   expect(state.breakpoints).toEqual([2]);
@@ -119,7 +111,7 @@ test("interpreter breakpoints toggle", () => {
 });
 
 test("intepreter breakpoints trigger", () => {
-  let state = setupProgram(["+", "+", "+", "[", "-", "]"], MockStream("a"), MockStream());
+  let state = setupTestProgram("+++[-]", "a");
 
   state = brainfuckReducer(state, { type: "breakpoint", data: 4 });
   state = runCycles(state, 5).finalState;
@@ -143,7 +135,7 @@ test("intepreter breakpoints trigger", () => {
 });
 
 test("intepreter breakpoints trigger multiple", () => {
-  let state = setupProgram(["+", "+", "+", "+"], MockStream("a"), MockStream());
+  let state = setupTestProgram("++++");
 
   state = brainfuckReducer(state, { type: "breakpoint", data: 1 });
   state = brainfuckReducer(state, { type: "breakpoint", data: 2 });

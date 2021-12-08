@@ -1,6 +1,7 @@
+import { MockStream } from "../tests/Fixtures";
 import { IOStream } from "./IOStream";
 import createList from "./ImmutableList";
-import { ProgramState, Instruction, brainfuckReducer, isEnded } from "./Interpreter";
+import { ProgramState, Instruction, brainfuckReducer, isEnded, parse } from "./Interpreter";
 
 export type RunResult = {
   finalState: ProgramState;
@@ -30,6 +31,9 @@ export const setupProgram = (
   stdin: stdin,
   stdout: stdout,
 });
+
+export const setupTestProgram = (program: string, input: string = "") =>
+  setupProgram(parse(program), MockStream(input), MockStream());
 
 export const runCycles = (state: ProgramState, cycles: number): RunResult => {
   let cyclesCount = 0;
