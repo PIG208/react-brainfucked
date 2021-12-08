@@ -20,14 +20,26 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
           <span className="note">(enter any bf program to get started)</span>
         )}
       </h2>
+      <p>
+        Status:{" "}
+        {!isStarted(programState)
+          ? "not started"
+          : isEnded(programState)
+          ? "ended"
+          : programState.blocked
+          ? "blocked (input required)"
+          : "running"}
+      </p>
       <ul className="panel">
         <li>
           <button
             className="btn"
             onClick={() => dispatch({ type: "run" })}
-            disabled={programState.program.length === 0}
+            disabled={
+              programState.program.length === 0 || isEnded(programState) || programState.blocked
+            }
           >
-            Run
+            {isStarted(programState) ? "Continue" : "Run"}
           </button>
         </li>
         <li>
@@ -36,9 +48,7 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
             onClick={() => dispatch({ type: "next" })}
             disabled={isEnded(programState) || programState.blocked}
           >
-            {isStarted(programState)
-              ? `Step${programState.blocked ? " (input required)" : ""}`
-              : "Start"}
+            {isStarted(programState) ? "Step" : "Start"}
           </button>
         </li>
         <li>
