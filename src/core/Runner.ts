@@ -1,7 +1,7 @@
 import { MockStream } from "../tests/Fixtures";
 import { IOStream } from "./IOStream";
 import createList from "./ImmutableList";
-import { ProgramState, Instruction, brainfuckReducer, isEnded, parse } from "./Interpreter";
+import { ProgramState, brainfuckReducer, isEnded, ParseResult, parse } from "./Interpreter";
 
 export type RunResult = {
   finalState: ProgramState;
@@ -13,20 +13,20 @@ const MEMORY_SIZE = 30000;
 export const MAX_PROGRAM_CYCLES = 2 << 16;
 
 export const setupProgram = (
-  program: Instruction[],
+  parsed: ParseResult,
   stdin: IOStream,
   stdout: IOStream
 ): ProgramState => ({
   programCounter: 0,
   dataPointer: 0,
   memory: createList(Array(MEMORY_SIZE).fill(0)),
-  jmpStack: [],
-  program: program,
+  program: parsed.program,
 
   breakpoints: [],
-  skipping: false,
   blocked: false,
   blockType: "none",
+  loopForward: parsed.loopForward,
+  loopBackward: parsed.loopBackward,
 
   stdin: stdin,
   stdout: stdout,

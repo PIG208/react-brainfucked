@@ -4,7 +4,7 @@ import { ASCIIsToString, stringToASCIIs } from "../core/utils";
 import { nestedLoop, testHelloWorld } from "./Fixtures";
 
 test("interpreter parse", () => {
-  expect(parse(testHelloWorld.raw)).toEqual(testHelloWorld.parsed);
+  expect(parse(testHelloWorld.raw).program).toEqual(testHelloWorld.parsed);
 });
 
 test("interpreter commands basic +-", () => {

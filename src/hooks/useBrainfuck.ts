@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { initializeIOStream } from "../core/IOStream";
-import { brainfuckReducer, Instruction, parse, ProgramState } from "../core/Interpreter";
+import { brainfuckReducer, parse, ParseResult, ProgramState } from "../core/Interpreter";
 import { run, setupProgram } from "../core/Runner";
 import { stringToASCIIs } from "../core/utils";
 import { ReducerAction, ReducerHookReturnType } from "../types";
@@ -12,7 +12,7 @@ export type BrainfuckAction =
   | ReducerAction<"write", string>
   | ReducerAction<"breakpoint", number>;
 const DEFAULT_STREAM_SIZE = 2 << 10;
-const setup = (parsed: Instruction[]) =>
+const setup = (parsed: ParseResult) =>
   setupProgram(
     parsed,
     initializeIOStream(DEFAULT_STREAM_SIZE),

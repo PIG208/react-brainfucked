@@ -1,7 +1,10 @@
 import binarySearch from "binarysearch";
+// External library for laziness (and performance)
+import { Map as ImmutableMap } from "immutable";
 
 import { ReducerAction } from "../types";
 import { ioReducer, IOStream } from "./IOStream";
+// Homemade Immutable List just for fun
 import { List } from "./ImmutableList";
 
 export type BrainfuckCoreAction =
@@ -11,16 +14,21 @@ export type BrainfuckCoreAction =
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
 export type BlockType = "none" | "io" | "breakpoint";
+export type ParseResult = {
+  program: Instruction[];
+  loopForward: ImmutableMap<number, number>;
+  loopBackward: ImmutableMap<number, number>;
+};
 
 export type ProgramState = {
   programCounter: number;
   dataPointer: number;
   memory: List<number>;
-  jmpStack: number[];
   program: Instruction[];
 
   breakpoints: number[];
-  skipping: boolean;
+  loopForward: ImmutableMap<number, number>;
+  loopBackward: ImmutableMap<number, number>;
   blocked: boolean;
   blockType: BlockType;
 
@@ -31,7 +39,6 @@ export type ProgramState = {
 const copyState = (state: ProgramState): ProgramState => ({
   ...state,
   // TODO: Implement immutable dynamic list
-  jmpStack: state.jmpStack.slice(0),
   breakpoints: state.breakpoints.slice(0),
 });
 
@@ -47,8 +54,8 @@ export const isPaused = (state: ProgramState) => state.blockType === "breakpoint
 /**
  * Parse out the initial loop and ignore non-instruction characters
  */
-export const parse = (program: string): Instruction[] => {
-  let output: any = [];
+export const parse = (program: string): ParseResult => {
+  let output: Instruction[] = [];
   if (program.startsWith("[")) {
     let count = 1,
       index = 1;
@@ -60,19 +67,43 @@ export const parse = (program: string): Instruction[] => {
         count--;
       }
       if (index > 30000) {
-        return [];
+        return {
+          program: [],
+          loopForward: ImmutableMap(),
+          loopBackward: ImmutableMap(),
+        };
       }
       index++;
     }
     program = program.slice(index + 1);
   }
 
-  for (let s of program) {
-    if (instructionSet.has(s)) {
-      output.push(s);
+  output = program.split("").filter((s) => instructionSet.has(s)) as any;
+
+  let i = 0;
+  let leftBrackets: number[] = [];
+  let loopForward = new Map<number, number>(),
+    loopBackward = new Map<number, number>();
+
+  for (; i < output.length; i++) {
+    if (output[i] === "[") {
+      leftBrackets.push(i);
+    } else if (output[i] === "]") {
+      let loopBeginning = leftBrackets.pop();
+      if (loopBeginning === undefined) break;
+
+      loopForward.set(loopBeginning, i);
+      loopBackward.set(i, loopBeginning);
     }
   }
-  return output;
+
+  if (leftBrackets.length > 0 || i < output.length) console.error("Unbalanced loops");
+
+  return {
+    program: output,
+    loopForward: ImmutableMap(loopForward),
+    loopBackward: ImmutableMap(loopBackward),
+  };
 };
 
 const next = (state: ProgramState, continuing: boolean = false): ProgramState => {
@@ -89,11 +120,6 @@ const next = (state: ProgramState, continuing: boolean = false): ProgramState =>
 
   const instruction = fetchInstruction(newState);
   let overridePc = false;
-
-  if (newState.skipping && instruction !== "]") {
-    newState.programCounter++;
-    return newState;
-  }
 
   switch (instruction) {
     case ">":
@@ -125,21 +151,20 @@ const next = (state: ProgramState, continuing: boolean = false): ProgramState =>
       newState.stdout = ioReducer(newState.stdout, { type: "write", data: readMemory(newState) });
       break;
     case "[":
-      if (readMemory(newState) !== 0) {
-        // We can jump back to this point
-        newState.jmpStack.push(newState.programCounter);
-      } else {
+      if (readMemory(newState) === 0) {
         // Skip the entire loop body until we reaches the corresponding ]
-        newState.skipping = true;
+        const target = newState.loopForward.get(newState.programCounter);
+        if (target === undefined) throw new Error("Cannot find the corresponding ]");
+        newState.programCounter = target + 1;
+        overridePc = true;
       }
       break;
     case "]":
-      if (readMemory(newState) === 0) {
-        // When the data pointer becomes 0, reset the stack and continue
-        newState.jmpStack.pop();
-      } else {
-        // Jump back to the top of the jmpStack
-        newState.programCounter = newState.jmpStack[newState.jmpStack.length - 1] + 1;
+      if (readMemory(newState) !== 0) {
+        // Skip the entire loop body until we reaches the corresponding ]
+        const target = newState.loopBackward.get(newState.programCounter);
+        if (target === undefined) throw new Error("Cannot find the corresponding ]");
+        newState.programCounter = target + 1;
         overridePc = true;
       }
       break;
