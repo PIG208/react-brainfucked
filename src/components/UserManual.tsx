@@ -59,7 +59,10 @@ const UserManual = () => {
       </p>
       <p>
         The <span className="bordered-text">Last read</span> section indicates what the program has
-        just read from the user input
+        just read from the user input.
+      </p>
+      <p>
+        To add an breakpoint, just click on the instruction to pause at in the parsed program block.
       </p>
     </>
   );

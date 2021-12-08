@@ -42,6 +42,7 @@ const fetchInstruction = (state: ProgramState): Instruction => state.program[sta
 
 export const isEnded = (state: ProgramState) => state.programCounter === state.program.length;
 export const isStarted = (state: ProgramState) => state.programCounter > 0 || state.blocked;
+export const isPaused = (state: ProgramState) => state.blockType === "breakpoint" && state.blocked;
 
 /**
  * Parse out the initial loop and ignore non-instruction characters

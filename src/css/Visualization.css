@@ -15,7 +15,10 @@
 .program-field > span {
   color: black;
   font-size: 1rem;
-  transition: 0.4s all;
+  transition: 0.04s all;
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
 }
 
 .program-field > p {
@@ -26,9 +29,22 @@
   color: grey;
 }
 
+.program-field > span:hover {
+  border: 1px solid red;
+}
+
 .program-field > .highlighted {
   color: red;
-  font-size: 1.4rem;
+}
+
+.program-field > .highlighted::before {
+  content: "^";
+  position: absolute;
+  bottom: -60%;
+}
+
+.program-field > .breakpoint {
+  border: 1px solid red;
 }
 
 .visualization {

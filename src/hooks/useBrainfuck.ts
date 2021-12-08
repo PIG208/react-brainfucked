@@ -8,8 +8,9 @@ import { ReducerAction, ReducerHookReturnType } from "../types";
 
 export type BrainfuckAction =
   | ReducerAction<"load", string>
-  | ReducerAction<"next" | "reset" | "run">
-  | ReducerAction<"write", string>;
+  | ReducerAction<"next" | "reset" | "run" | "continue">
+  | ReducerAction<"write", string>
+  | ReducerAction<"breakpoint", number>;
 const DEFAULT_STREAM_SIZE = 2 << 10;
 const setup = (parsed: Instruction[]) =>
   setupProgram(
@@ -46,6 +47,14 @@ export const useBrainfuck = (
           setProgramState((programState) =>
             brainfuckReducer(programState, { type: "write", data: stringToASCIIs(action.data) })
           );
+          break;
+        case "breakpoint":
+          setProgramState((programState) =>
+            brainfuckReducer(programState, { type: "breakpoint", data: action.data })
+          );
+          break;
+        case "continue":
+          setProgramState((programState) => brainfuckReducer(programState, { type: "continue" }));
           break;
       }
     },
