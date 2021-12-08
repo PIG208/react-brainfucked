@@ -1,3 +1,4 @@
+import { isEnded } from "../core/Interpreter";
 import { MAX_PROGRAM_CYCLES, run, setupProgram } from "../core/Runner";
 import { MockStream } from "./Fixtures";
 
@@ -21,12 +22,10 @@ test("runner infinite loop", () => {
   expect(result.numCycles).toEqual(MAX_PROGRAM_CYCLES);
 });
 
-test("runner wait forever for input", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+test("runner quit when blocked", () => {
   let state = setupProgram([","], MockStream(), MockStream());
 
   let result = run(state);
-  expect(consoleSpy).toBeCalledWith("Time limit exceed");
   expect(result.finalState.blocked).toBeTruthy();
-  expect(result.numCycles).toEqual(MAX_PROGRAM_CYCLES);
+  expect(isEnded(result.finalState)).toBeFalsy();
 });

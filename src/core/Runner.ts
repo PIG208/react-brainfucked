@@ -47,6 +47,7 @@ export const run = (state: ProgramState): RunResult => {
   let cycles = 0;
   while (!isEnded(state) && ++cycles < MAX_PROGRAM_CYCLES) {
     state = brainfuckReducer(state, { type: "next" });
+    if (state.blocked) break;
   }
 
   if (cycles === MAX_PROGRAM_CYCLES && !isEnded(state)) {
