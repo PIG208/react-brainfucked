@@ -49,7 +49,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 id="center">react-brainfucked</h1>
+      <h1 className="centered">react-brainfucked</h1>
+      <h2 className="centered">A brainfuck interpreter & debugger</h2>
       <main className="App-main">
         <div>
           <Editor code={code} setCode={setCode} enabled={editorEnabled} />
