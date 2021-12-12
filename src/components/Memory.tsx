@@ -39,6 +39,7 @@ const Memory = ({ programState, memoryLower, memoryUpper }: MemoryProps) => {
           ></MemoryBlock>
         );
       })}
+      <p className="memory-size">Showing {memoryUpper - memoryLower} of {programState.memory.size()} memory blocks.</p>
     </div>
   );
 };
