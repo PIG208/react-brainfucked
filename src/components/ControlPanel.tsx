@@ -69,14 +69,18 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
           <button
             className="btn"
             onClick={() => {
-              if(!isStarted(programState)){
-                dispatch({type:"reset-io"});
+              if (!isStarted(programState)) {
+                dispatch({ type: "reset-io" });
               }
               dispatch({ type: "reset" });
             }}
             disabled={programState.program.length === 0}
           >
-            Reset {!isStarted(programState) && (programState.stdin.pointer > 0 || programState.stdout.pointer > 0) ? "IO" : ""}
+            Reset{" "}
+            {!isStarted(programState) &&
+            (programState.stdin.pointer > 0 || programState.stdout.pointer > 0)
+              ? "IO"
+              : ""}
           </button>
         </li>
         <li>

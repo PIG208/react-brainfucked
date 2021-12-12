@@ -230,7 +230,7 @@ const refreshIO = (state: ProgramState, ioStreams: IOStreams) => {
   state.stdin = ioStreams.input;
   state.stdout = ioStreams.output;
   return newState;
-}
+};
 
 export const brainfuckReducer = (
   state: ProgramState,

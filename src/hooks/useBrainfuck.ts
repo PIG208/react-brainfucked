@@ -14,11 +14,7 @@ export type BrainfuckAction =
   | ReducerAction<"breakpoint", number>;
 const DEFAULT_STREAM_SIZE = 2 << 10;
 const setup = (parsed: ParseResult, input: IOStream, output: IOStream) =>
-  setupProgram(
-    parsed,
-    input,
-    output
-  );
+  setupProgram(parsed, input, output);
 
 export const useBrainfuck = (
   initialProgram: string = ""
@@ -29,10 +25,17 @@ export const useBrainfuck = (
   }, [program]);
   const [inputStream, inputStreamDispatch] = useStream(DEFAULT_STREAM_SIZE);
   const [outputStream, outputStreamDispatch] = useStream(DEFAULT_STREAM_SIZE);
-  const [programState, setProgramState] = useState<ProgramState>(setup(parsedProgram, inputStream, outputStream));
+  const [programState, setProgramState] = useState<ProgramState>(
+    setup(parsedProgram, inputStream, outputStream)
+  );
 
   useEffect(() => {
-    setProgramState((programState) => brainfuckReducer(programState, {type: "refresh-io", data: {input: inputStream, output: outputStream}}))
+    setProgramState((programState) =>
+      brainfuckReducer(programState, {
+        type: "refresh-io",
+        data: { input: inputStream, output: outputStream },
+      })
+    );
   }, [inputStream, outputStream]);
 
   const dispatch = useCallback(
@@ -48,11 +51,13 @@ export const useBrainfuck = (
           setProgramState((programState) => run(programState).finalState);
           break;
         case "reset":
-          setProgramState((programState) => setup(parsedProgram, programState.stdin, programState.stdout));
+          setProgramState((programState) =>
+            setup(parsedProgram, programState.stdin, programState.stdout)
+          );
           break;
         case "reset-io":
-          inputStreamDispatch({type: "reset"});
-          outputStreamDispatch({type: "reset"});
+          inputStreamDispatch({ type: "reset" });
+          outputStreamDispatch({ type: "reset" });
           break;
         case "write":
           setProgramState((programState) =>

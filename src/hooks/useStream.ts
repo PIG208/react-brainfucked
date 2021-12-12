@@ -8,14 +8,17 @@ export type StreamAction = IOAction | ReducerAction<"reset">;
 export const useStream = (size: number): ReducerHookReturnType<IOStream, StreamAction> => {
   const [stream, setStream] = useState<IOStream>(initializeIOStream(size));
 
-  const dispatch = useCallback((action: StreamAction) => {
-    if(action.type === "reset") {
-      setStream(initializeIOStream(size));
-      return;
-    }
+  const dispatch = useCallback(
+    (action: StreamAction) => {
+      if (action.type === "reset") {
+        setStream(initializeIOStream(size));
+        return;
+      }
 
-    setStream(stream => ioReducer(stream, action));
-  }, [setStream, size]);
+      setStream((stream) => ioReducer(stream, action));
+    },
+    [setStream, size]
+  );
 
   return [stream, dispatch];
 };
