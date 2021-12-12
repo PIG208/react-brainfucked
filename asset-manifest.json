@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-brainfucked/static/css/main.51539310.chunk.css",
-    "main.js": "/react-brainfucked/static/js/main.c66a513d.chunk.js",
-    "main.js.map": "/react-brainfucked/static/js/main.c66a513d.chunk.js.map",
+    "main.js": "/react-brainfucked/static/js/main.9f6ce993.chunk.js",
+    "main.js.map": "/react-brainfucked/static/js/main.9f6ce993.chunk.js.map",
     "runtime-main.js": "/react-brainfucked/static/js/runtime-main.08736da0.js",
     "runtime-main.js.map": "/react-brainfucked/static/js/runtime-main.08736da0.js.map",
     "static/css/2.189ab08d.chunk.css": "/react-brainfucked/static/css/2.189ab08d.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.189ab08d.chunk.css",
     "static/js/2.a301c305.chunk.js",
     "static/css/main.51539310.chunk.css",
-    "static/js/main.c66a513d.chunk.js"
+    "static/js/main.9f6ce993.chunk.js"
   ]
 }
