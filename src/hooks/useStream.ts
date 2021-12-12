@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-import { IOAction, ioReducer, IOStream } from "../core/IOStream";
-import { ReducerHookReturnType } from "../types";
+import { initializeIOStream, IOAction, ioReducer, IOStream } from "../core/IOStream";
+import { ReducerAction, ReducerHookReturnType } from "../types";
 
-export const useStream = (size: number): ReducerHookReturnType<IOStream, IOAction> => {
-  const [stream, setStream] = useState<IOStream>({
-    buffer: [],
-    size: size,
-    pointer: 0,
-    readPointer: 0,
-    readBuffer: [],
-    pendingSize: 0,
-  });
+export type StreamAction = IOAction | ReducerAction<"reset">;
 
-  const dispatch = (action: IOAction) => {
-    setStream(ioReducer(stream, action));
-  };
+export const useStream = (size: number): ReducerHookReturnType<IOStream, StreamAction> => {
+  const [stream, setStream] = useState<IOStream>(initializeIOStream(size));
+
+  const dispatch = useCallback((action: StreamAction) => {
+    if(action.type === "reset") {
+      setStream(initializeIOStream(size));
+      return;
+    }
+
+    setStream(stream => ioReducer(stream, action));
+  }, [setStream, size]);
 
   return [stream, dispatch];
 };

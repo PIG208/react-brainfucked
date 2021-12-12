@@ -7,10 +7,15 @@ import { ioReducer, IOStream } from "./IOStream";
 // Homemade Immutable List just for fun
 import { List } from "./ImmutableList";
 
+export type IOStreams = {
+  input: IOStream;
+  output: IOStream;
+};
 export type BrainfuckCoreAction =
   | ReducerAction<"next" | "continue">
   | ReducerAction<"breakpoint", number>
-  | ReducerAction<"write", number[]>;
+  | ReducerAction<"write", number[]>
+  | ReducerAction<"refresh-io", IOStreams>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
 export type BlockType = "none" | "io" | "breakpoint";
@@ -220,6 +225,13 @@ const breakpoint = (state: ProgramState, breakpoint: number) => {
   return newState;
 };
 
+const refreshIO = (state: ProgramState, ioStreams: IOStreams) => {
+  let newState = copyState(state);
+  state.stdin = ioStreams.input;
+  state.stdout = ioStreams.output;
+  return newState;
+}
+
 export const brainfuckReducer = (
   state: ProgramState,
   action: BrainfuckCoreAction
@@ -233,5 +245,7 @@ export const brainfuckReducer = (
       return next(unblockBreakpoint(state), true);
     case "breakpoint":
       return breakpoint(state, action.data);
+    case "refresh-io":
+      return refreshIO(state, action.data);
   }
 };
