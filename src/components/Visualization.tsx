@@ -5,13 +5,17 @@ import { BrainfuckAction } from "../hooks/useBrainfuck";
 import "../css/Visualization.css";
 
 import { isStarted, ProgramState } from "../core/Interpreter";
+import Memory from "./Memory";
 
 export type VisualizationProps = {
   programState: ProgramState;
   dispatch: (action: BrainfuckAction) => void;
+  memoryDisplayCount: number;
 };
 
-const Visualization = ({ programState, dispatch }: VisualizationProps) => {
+const Visualization = ({ programState, dispatch, memoryDisplayCount }: VisualizationProps) => {
+  const memoryLower = Math.max(0, programState.dataPointer - Math.floor(memoryDisplayCount / 2));
+  const memoryUpper = Math.min(memoryLower + memoryDisplayCount, programState.memory.size());
   const isCurrentPc = (pc: number) =>
     (!programState.blocked &&
       (pc === programState.programCounter - 1 ||
@@ -29,7 +33,7 @@ const Visualization = ({ programState, dispatch }: VisualizationProps) => {
   }, [programState.program, programState.breakpoints]);
 
   return (
-    <>
+    <div>
       <h2>Visualization</h2>
       <div className="visualization">
         <div className="program-field">
@@ -56,7 +60,9 @@ const Visualization = ({ programState, dispatch }: VisualizationProps) => {
           <p>current data: {programState.memory.query(programState.dataPointer)}</p>
         </div>
       </div>
-    </>
+      <p>Memory Cells</p>
+      <Memory programState={programState} memoryLower={memoryLower} memoryUpper={memoryUpper} />
+    </div>
   );
 };
 
