@@ -26,6 +26,7 @@ export type ParseResult = {
 };
 
 export type ProgramState = {
+  age: number;
   programCounter: number;
   dataPointer: number;
   memory: List<number>;
@@ -124,6 +125,7 @@ const next = (state: ProgramState, continuing: boolean = false): ProgramState =>
   }
 
   const instruction = fetchInstruction(newState);
+  newState.age++;
   let overridePc = false;
 
   switch (instruction) {

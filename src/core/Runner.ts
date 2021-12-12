@@ -17,6 +17,7 @@ export const setupProgram = (
   stdin: IOStream,
   stdout: IOStream
 ): ProgramState => ({
+  age: 0,
   programCounter: 0,
   dataPointer: 0,
   memory: createList(Array(MEMORY_SIZE).fill(0)),

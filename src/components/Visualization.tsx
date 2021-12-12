@@ -52,6 +52,7 @@ const Visualization = ({ programState, dispatch, memoryDisplayCount }: Visualiza
           <p>parsed program</p>
         </div>
         <div>
+          <p>cycles: {programState.age}</p>
           <p>
             program counter: {programState.programCounter}
             {programState.blocked ? " (waiting for input)" : ""}

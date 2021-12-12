@@ -54,6 +54,7 @@ test("interpreter helloworld", () => {
   const result = run(state);
   expect(ASCIIsToString(result.finalState.stdout.buffer.slice(0, 12))).toEqual("Hello World!");
   expect(result.numCycles).toEqual(906);
+  expect(result.finalState.age).toEqual(906);
 });
 
 test("interpreter immutability", () => {
