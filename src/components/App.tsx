@@ -7,6 +7,7 @@ import "../css/App.css";
 import Console from "./Console";
 import ControlPanel from "./ControlPanel";
 import Editor from "./Editor";
+import GithubLink from "./GithubLink";
 import UserManual from "./UserManual";
 import Visualization from "./Visualization";
 
@@ -64,6 +65,7 @@ function App() {
           <UserManual />
         </div>
       </main>
+      <GithubLink />
     </div>
   );
 }
