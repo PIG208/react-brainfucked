@@ -4,7 +4,7 @@ import { Instruction } from "../core/Interpreter";
 export const MockStream = (content: string = ""): IOStream => ({
   buffer: Array.from(content).map((c) => c.charCodeAt(0)),
   size: Infinity,
-  pointer: 0,
+  pointer: content.length,
   readPointer: 0,
   readBuffer: [],
   pendingSize: 0,
