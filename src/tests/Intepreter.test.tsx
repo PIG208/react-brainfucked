@@ -1,3 +1,4 @@
+import { initializeIOStream } from "../core/IOStream";
 import { brainfuckReducer, isEnded, parse } from "../core/Interpreter";
 import { run, runCycles, setupTestProgram } from "../core/Runner";
 import { ASCIIsToString, stringToASCIIs } from "../core/utils";
@@ -164,4 +165,18 @@ test("intepreter underflow", () => {
 
   expect(state.memory.query(1)).toEqual(255);
   expect(isEnded(state)).toBeTruthy();
+});
+
+test("intepreter reset io", () => {
+  let state = setupTestProgram("++", "Test");
+
+  expect(state.stdin.pointer).toEqual(4);
+  expect(ASCIIsToString(state.stdin.buffer)).toEqual("Test");
+
+  state = brainfuckReducer(state, {
+    type: "refresh-io",
+    data: { input: initializeIOStream(15), output: initializeIOStream(15) },
+  });
+  expect(state.stdin.pointer).toEqual(0);
+  expect(state.stdin.buffer).toEqual([]);
 });

@@ -30,12 +30,13 @@ export const useBrainfuck = (
   );
 
   useEffect(() => {
-    setProgramState((programState) =>
-      brainfuckReducer(programState, {
+    setProgramState((programState) => {
+      let state = brainfuckReducer(programState, {
         type: "refresh-io",
         data: { input: inputStream, output: outputStream },
-      })
-    );
+      });
+      return state;
+    });
   }, [inputStream, outputStream]);
 
   const dispatch = useCallback(

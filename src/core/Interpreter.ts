@@ -227,8 +227,8 @@ const breakpoint = (state: ProgramState, breakpoint: number) => {
 
 const refreshIO = (state: ProgramState, ioStreams: IOStreams) => {
   let newState = copyState(state);
-  state.stdin = ioStreams.input;
-  state.stdout = ioStreams.output;
+  newState.stdin = ioStreams.input;
+  newState.stdout = ioStreams.output;
   return newState;
 };
 
