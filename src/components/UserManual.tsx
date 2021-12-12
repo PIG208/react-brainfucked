@@ -66,7 +66,7 @@ const UserManual = () => {
         just read from the user input.
       </p>
       <p>
-        To add an breakpoint, just click on the instruction to pause at in the parsed program block.
+        To add a breakpoint, just click on the instruction to pause at in the parsed program block.
       </p>
     </div>
   );
