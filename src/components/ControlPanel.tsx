@@ -13,7 +13,7 @@ export type ControlPanelProps = {
 
 const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) => {
   return (
-    <>
+    <div>
       <h2>
         Control Panel{" "}
         {programState.program.length === 0 && (
@@ -80,7 +80,7 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
           </button>
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 

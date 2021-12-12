@@ -8,7 +8,7 @@ export type EditorProps = {
 
 const Editor = ({ code, setCode, enabled }: EditorProps) => {
   return (
-    <>
+    <div>
       <h2>Editor</h2>
       <CodeEditor
         value={code}
@@ -22,7 +22,7 @@ const Editor = ({ code, setCode, enabled }: EditorProps) => {
         }}
         disabled={!enabled}
       />
-    </>
+    </div>
   );
 };
 

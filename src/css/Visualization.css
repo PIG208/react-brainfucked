@@ -64,7 +64,7 @@
   grid-area: 1 / 2 / 2 / 3;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1043px) {
   .visualization {
     display: block;
   }

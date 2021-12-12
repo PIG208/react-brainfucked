@@ -2,7 +2,7 @@ import "../css/UserManual.css";
 
 const UserManual = () => {
   return (
-    <>
+    <div>
       <h2>User Manual</h2>
       <p>A BF program has 8 different instructions</p>
       <table className="manual-table">
@@ -64,7 +64,7 @@ const UserManual = () => {
       <p>
         To add an breakpoint, just click on the instruction to pause at in the parsed program block.
       </p>
-    </>
+    </div>
   );
 };
 
