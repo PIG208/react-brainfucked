@@ -16,7 +16,8 @@ export type Fixture = {
 };
 
 export const testHelloWorld: Fixture = {
-  raw: `[ This program prints "Hello World!" and a newline to the screen, its
+  raw: `[ Credits: Wikipedia
+This program prints "Hello World!" and a newline to the screen, its
 length is 106 active command characters. [It is not the shortest.]
 
 This loop is an "initial comment loop", a simple way of adding a comment
