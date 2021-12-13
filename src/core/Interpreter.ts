@@ -18,7 +18,8 @@ export type BrainfuckCoreAction =
   | ReducerAction<"refresh-io", IOStreams>;
 const instructionSet = new Set(["<", ">", ",", ".", "[", "]", "+", "-"]);
 export type Instruction = "<" | ">" | "," | "." | "[" | "]" | "+" | "-";
-export type BlockType = "none" | "io" | "breakpoint";
+export type BlockType = "none" | "io" | "breakpoint" | "error";
+export type ErrorCode = "memory-out-of-bounds" | "none";
 export type ParseResult = {
   program: Instruction[];
   loopForward: ImmutableMap<number, number>;
@@ -37,6 +38,7 @@ export type ProgramState = {
   loopBackward: ImmutableMap<number, number>;
   blocked: boolean;
   blockType: BlockType;
+  errorCode: ErrorCode;
 
   stdin: IOStream;
   stdout: IOStream;
@@ -130,9 +132,21 @@ const next = (state: ProgramState, continuing: boolean = false): ProgramState =>
 
   switch (instruction) {
     case ">":
+      if (newState.dataPointer + 1 >= newState.memory.size()) {
+        newState.blocked = true;
+        newState.errorCode = "memory-out-of-bounds";
+        newState.blockType = "error";
+        return newState;
+      }
       newState.dataPointer++;
       break;
     case "<":
+      if (newState.dataPointer - 1 < 0) {
+        newState.blocked = true;
+        newState.errorCode = "memory-out-of-bounds";
+        newState.blockType = "error";
+        return newState;
+      }
       newState.dataPointer--;
       break;
     case "+":

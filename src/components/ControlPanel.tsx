@@ -27,11 +27,13 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
           : isEnded(programState)
           ? "ended"
           : programState.blocked
-          ? `blocked${
+          ? `${programState.blockType === "error" ? "error" : "blockedg"}${
               programState.blockType === "breakpoint"
                 ? " (breakpoint)"
                 : programState.blockType === "io"
                 ? " (input required)"
+                : programState.blockType === "error"
+                ? ` (${programState.errorCode})`
                 : ""
             }`
           : "running"}

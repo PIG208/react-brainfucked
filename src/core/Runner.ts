@@ -28,6 +28,7 @@ export const setupProgram = (
   blockType: "none",
   loopForward: parsed.loopForward,
   loopBackward: parsed.loopBackward,
+  errorCode: "none",
 
   stdin: stdin,
   stdout: stdout,

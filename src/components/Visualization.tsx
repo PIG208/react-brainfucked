@@ -57,7 +57,9 @@ const Visualization = ({ programState, dispatch, memoryDisplayCount }: Visualiza
             <p>cycles: {programState.age}</p>
             <p>
               program counter: {programState.programCounter}
-              {programState.blocked ? " (waiting for input)" : ""}
+              {programState.blocked && programState.blockType === "io"
+                ? " (waiting for input)"
+                : ""}
             </p>
             <p>data pointer: {programState.dataPointer}</p>
             <p>current data: {programState.memory.query(programState.dataPointer)}</p>
