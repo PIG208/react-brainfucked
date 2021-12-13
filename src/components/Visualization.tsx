@@ -5,6 +5,7 @@ import { BrainfuckAction } from "../hooks/useBrainfuck";
 import "../css/Visualization.css";
 
 import { isStarted, ProgramState } from "../core/Interpreter";
+import Collapsable from "./Collapsable";
 import Memory from "./Memory";
 
 export type VisualizationProps = {
@@ -34,35 +35,40 @@ const Visualization = ({ programState, dispatch, memoryDisplayCount }: Visualiza
 
   return (
     <div>
-      <h2>Visualization</h2>
-      <div className="visualization">
-        <div className="program-field">
-          {programState.program.map((instruction, index) => (
-            <span
-              key={index}
-              className={(isStarted(programState) && isCurrentPc(index)
-                ? "highlighted"
-                : ""
-              ).concat(breakpoints[index] ? " breakpoint" : "")}
-              onClick={() => dispatch({ type: "breakpoint", data: index })}
-            >
-              {instruction}
-            </span>
-          ))}
-          <p>parsed program</p>
+      <Collapsable altText="Show parsed program">
+        <h2>Visualization</h2>
+        <div className="visualization">
+          <div className="program-field">
+            {programState.program.map((instruction, index) => (
+              <span
+                key={index}
+                className={(isStarted(programState) && isCurrentPc(index)
+                  ? "highlighted"
+                  : ""
+                ).concat(breakpoints[index] ? " breakpoint" : "")}
+                onClick={() => dispatch({ type: "breakpoint", data: index })}
+              >
+                {instruction}
+              </span>
+            ))}
+            <p>parsed program</p>
+          </div>
+          <div>
+            <p>cycles: {programState.age}</p>
+            <p>
+              program counter: {programState.programCounter}
+              {programState.blocked ? " (waiting for input)" : ""}
+            </p>
+            <p>data pointer: {programState.dataPointer}</p>
+            <p>current data: {programState.memory.query(programState.dataPointer)}</p>
+          </div>
         </div>
-        <div>
-          <p>cycles: {programState.age}</p>
-          <p>
-            program counter: {programState.programCounter}
-            {programState.blocked ? " (waiting for input)" : ""}
-          </p>
-          <p>data pointer: {programState.dataPointer}</p>
-          <p>current data: {programState.memory.query(programState.dataPointer)}</p>
-        </div>
-      </div>
-      <p>Memory Cells</p>
-      <Memory programState={programState} memoryLower={memoryLower} memoryUpper={memoryUpper} />
+      </Collapsable>
+      <Collapsable altText="Show memory cells">
+        {" "}
+        <p>Memory Cells</p>
+        <Memory programState={programState} memoryLower={memoryLower} memoryUpper={memoryUpper} />
+      </Collapsable>
     </div>
   );
 };

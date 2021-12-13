@@ -4,6 +4,7 @@ import { useBrainfuck } from "../hooks/useBrainfuck";
 
 import "../css/App.css";
 
+import Collapsable from "./Collapsable";
 import Console from "./Console";
 import ControlPanel from "./ControlPanel";
 import Editor from "./Editor";
@@ -53,7 +54,9 @@ function App() {
       <h2 className="centered">A brainfuck interpreter & debugger</h2>
       <main className="App-main">
         <div>
-          <Editor code={code} setCode={setCode} enabled={editorEnabled} />
+          <Collapsable altText="Show editor">
+            <Editor code={code} setCode={setCode} enabled={editorEnabled} />
+          </Collapsable>
           <Visualization
             programState={brainfuck}
             dispatch={dispatch}
@@ -61,9 +64,15 @@ function App() {
           />
         </div>
         <div>
-          <ControlPanel programState={brainfuck} setCode={setCode} dispatch={dispatch} />
-          <Console programState={brainfuck} dispatch={dispatch} />
-          <UserManual />
+          <Collapsable altText="Show control panel">
+            <ControlPanel programState={brainfuck} setCode={setCode} dispatch={dispatch} />
+          </Collapsable>
+          <Collapsable altText="Show console">
+            <Console programState={brainfuck} dispatch={dispatch} />
+          </Collapsable>
+          <Collapsable altText="Show user manual">
+            <UserManual />
+          </Collapsable>
         </div>
       </main>
       <GithubLink />
