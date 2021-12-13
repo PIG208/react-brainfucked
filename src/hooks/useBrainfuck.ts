@@ -45,7 +45,7 @@ export const useBrainfuck = (
     let interval = setInterval(() => {
       if (!running) return;
       setCycle((cycle) => cycle + 1);
-      setProgramState((programState) => runCycles(programState, 3).finalState);
+      setProgramState((programState) => runCycles(programState, 10).finalState);
     }, 0);
 
     return () => clearInterval(interval);
