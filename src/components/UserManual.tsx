@@ -69,8 +69,11 @@ const UserManual = () => {
         To add a breakpoint, just click on the instruction to pause at in the parsed program block.
       </p>
       <p>
-        Checkout <a href="https://en.wikipedia.org/wiki/Brainfuck">Wikipedia</a> for more
+        Checkout <a href="https://en.wikipedia.org/wiki/Brainfuck" target="_blank" rel="noreferrer">Wikipedia</a> for more
         information about Brainfuck.
+      </p>
+      <p>
+        To see more examples, you can visit this <a href="http://brainfuck.org/" target="_blank" rel="noreferrer">site</a>.
       </p>
     </div>
   );
