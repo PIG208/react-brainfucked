@@ -6,12 +6,13 @@ import { ProgramState, isEnded, isStarted, isPaused } from "../core/Interpreter"
 import { testHelloWorld } from "../tests/Fixtures";
 
 export type ControlPanelProps = {
+  running: boolean;
   programState: ProgramState;
   setCode: (code: string) => void;
   dispatch: (action: BrainfuckAction) => void;
 };
 
-const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) => (
+const ControlPanel = ({ programState, setCode, dispatch, running }: ControlPanelProps) => (
   <div>
     <h2>
       Control Panel{" "}
@@ -26,7 +27,7 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
         : isEnded(programState)
         ? "ended"
         : programState.blocked
-        ? `${programState.blockType === "error" ? "error" : "blockedg"}${
+        ? `${programState.blockType === "error" ? "error" : "blocked"}${
             programState.blockType === "breakpoint"
               ? " (breakpoint)"
               : programState.blockType === "io"
@@ -42,6 +43,11 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
         <button
           className="btn"
           onClick={() => {
+            if (running) {
+              dispatch({ type: "stop" });
+              return;
+            }
+
             if (isPaused(programState)) dispatch({ type: "continue" });
             dispatch({ type: "run" });
           }}
@@ -51,7 +57,7 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
             (programState.blocked && !isPaused(programState))
           }
         >
-          {isStarted(programState) ? "Continue" : "Run"}
+          {!isStarted(programState) ? "Run" : running ? "Stop" : "Continue"}
         </button>
       </li>
       <li>
@@ -61,7 +67,9 @@ const ControlPanel = ({ programState, setCode, dispatch }: ControlPanelProps) =>
             if (isPaused(programState)) dispatch({ type: "continue" });
             else dispatch({ type: "next" });
           }}
-          disabled={isEnded(programState) || (programState.blocked && !isPaused(programState))}
+          disabled={
+            isEnded(programState) || running || (programState.blocked && !isPaused(programState))
+          }
         >
           {!isStarted(programState) ? "Start" : "Step"}
         </button>

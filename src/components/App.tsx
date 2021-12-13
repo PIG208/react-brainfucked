@@ -28,7 +28,7 @@ const getMemoryDisplayCount = (width: number) =>
 
 function App() {
   const [code, setCode] = useState("");
-  const [brainfuck, dispatch] = useBrainfuck(code);
+  const [brainfuck, dispatch, running] = useBrainfuck(code);
   const [editorEnabled] = useState(true);
   const [memoryDisplayCount, setMemoryDisplayCount] = useState(
     getMemoryDisplayCount(window.innerWidth)
@@ -65,7 +65,12 @@ function App() {
         </div>
         <div>
           <Collapsable altText="Show control panel">
-            <ControlPanel programState={brainfuck} setCode={setCode} dispatch={dispatch} />
+            <ControlPanel
+              programState={brainfuck}
+              setCode={setCode}
+              dispatch={dispatch}
+              running={running}
+            />
           </Collapsable>
           <Collapsable altText="Show console">
             <Console programState={brainfuck} dispatch={dispatch} />
