@@ -52,7 +52,7 @@ const Console = ({ programState, dispatch }: ConsoleProps) => {
             value={inputText}
             onKeyUp={(e) => {
               if (e.key === "Enter") {
-                dispatch({ type: "write", data: inputText });
+                dispatch({ type: "write", data: inputText + '\0' });
                 setInputText("");
               }
             }}
