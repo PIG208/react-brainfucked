@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/react-brainfucked/static/css/main.8e591ae0.chunk.css",
-    "main.js": "/react-brainfucked/static/js/main.6778926d.chunk.js",
-    "main.js.map": "/react-brainfucked/static/js/main.6778926d.chunk.js.map",
+    "main.css": "/react-brainfucked/static/css/main.52d1bb58.chunk.css",
+    "main.js": "/react-brainfucked/static/js/main.7932a04a.chunk.js",
+    "main.js.map": "/react-brainfucked/static/js/main.7932a04a.chunk.js.map",
     "runtime-main.js": "/react-brainfucked/static/js/runtime-main.08736da0.js",
     "runtime-main.js.map": "/react-brainfucked/static/js/runtime-main.08736da0.js.map",
     "static/css/2.189ab08d.chunk.css": "/react-brainfucked/static/css/2.189ab08d.chunk.css",
-    "static/js/2.358bc805.chunk.js": "/react-brainfucked/static/js/2.358bc805.chunk.js",
-    "static/js/2.358bc805.chunk.js.map": "/react-brainfucked/static/js/2.358bc805.chunk.js.map",
+    "static/js/2.5d6b0678.chunk.js": "/react-brainfucked/static/js/2.5d6b0678.chunk.js",
+    "static/js/2.5d6b0678.chunk.js.map": "/react-brainfucked/static/js/2.5d6b0678.chunk.js.map",
     "index.html": "/react-brainfucked/index.html",
     "static/css/2.189ab08d.chunk.css.map": "/react-brainfucked/static/css/2.189ab08d.chunk.css.map",
-    "static/css/main.8e591ae0.chunk.css.map": "/react-brainfucked/static/css/main.8e591ae0.chunk.css.map",
-    "static/js/2.358bc805.chunk.js.LICENSE.txt": "/react-brainfucked/static/js/2.358bc805.chunk.js.LICENSE.txt"
+    "static/css/main.52d1bb58.chunk.css.map": "/react-brainfucked/static/css/main.52d1bb58.chunk.css.map",
+    "static/js/2.5d6b0678.chunk.js.LICENSE.txt": "/react-brainfucked/static/js/2.5d6b0678.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.08736da0.js",
     "static/css/2.189ab08d.chunk.css",
-    "static/js/2.358bc805.chunk.js",
-    "static/css/main.8e591ae0.chunk.css",
-    "static/js/main.6778926d.chunk.js"
+    "static/js/2.5d6b0678.chunk.js",
+    "static/css/main.52d1bb58.chunk.css",
+    "static/js/main.7932a04a.chunk.js"
   ]
 }
