@@ -1,5 +1,7 @@
 import CodeEditor from "@uiw/react-textarea-code-editor";
 
+import "../css/Editor.css";
+
 export type EditorProps = {
   code: string;
   setCode: (val: string) => void;
@@ -10,18 +12,16 @@ const Editor = ({ code, setCode, enabled }: EditorProps) => {
   return (
     <div>
       <h2>Editor</h2>
-      <CodeEditor
-        value={code}
-        language="brainfuck"
-        placeholder="brainfuck program here"
-        onChange={(val) => setCode(val.target.value)}
-        padding={10}
-        style={{
-          border: "1px solid black",
-          borderRadius: "var(--border-radius)",
-        }}
-        disabled={!enabled}
-      />
+      <div className="editor-container">
+        <CodeEditor
+          value={code}
+          language="brainfuck"
+          placeholder="brainfuck program here"
+          onChange={(val) => setCode(val.target.value)}
+          padding={10}
+          disabled={!enabled}
+        />
+      </div>
     </div>
   );
 };

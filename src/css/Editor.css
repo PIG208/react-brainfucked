@@ -1,0 +1,6 @@
+.editor-container {
+  height: 320px;
+  overflow: auto;
+  border: 1px solid black;
+  border-radius: var(--border-radius);
+}
