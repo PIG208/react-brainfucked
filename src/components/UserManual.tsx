@@ -40,15 +40,15 @@ const UserManual = () => {
           <tr>
             <td>[</td>
             <td>
-              Do nothing when the current memory cell is 0, otherwise jump to corresponding{" "}
-              <code>]</code>
+              Do nothing when the current memory cell is 0, otherwise jump to the instruction after
+              the corresponding <code>]</code>
             </td>
           </tr>
           <tr>
             <td>]</td>
             <td>
-              Do nothing when the current memory cell is 0, otherwise jump to corresponding{" "}
-              <code>[</code>
+              Do nothing when the current memory cell is 0, otherwise jump to the instruction after
+              the corresponding <code>[</code>
             </td>
           </tr>
         </tbody>
