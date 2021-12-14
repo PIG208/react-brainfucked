@@ -23,40 +23,12 @@ This project is divided into four main components with Non-UI and UI parts:
 - The interpreter.
 - Handle the stream of brainfuck instructions, maintain the program states, not a part of the UI.
 
-### Editor/Linter
-- The custom code editor.
-- Highlight code, do static checks.
+### Editor
+- The code editor.
+- Highlight code.
 
 ### Console
 - Support basic I/O.
 
 ### Visualization
-- Visualize.
-
-```
-src
-├── components
-│   └── App.tsx
-├── core
-│   ├── IOStream.ts
-│   ├── Interpreter.ts
-│   ├── Runner.ts
-│   └── utils.ts
-├── css
-│   ├── App.css
-│   └── index.css
-├── hooks
-│   ├── useBrainfuck.ts
-│   └── useStream.ts
-├── tests
-│   ├── App.test.tsx
-│   ├── Fixtures.tsx
-│   ├── IOStream.test.ts
-│   ├── Intepreter.test.tsx
-│   ├── Runner.test.tsx
-│   └── hooks.test.tsx
-├── react-app-env.d.ts
-├── setupTests.ts
-├── index.tsx
-└── types.ts
-```
+- Visualize memory blocks, display parsed program.
