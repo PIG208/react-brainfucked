@@ -3,7 +3,7 @@
   padding: 1rem;
   border: 1px black solid;
   border-radius: var(--border-radius);
-  height: 100px;
+  height: 12rem;
   position: relative;
   overflow-y: auto;
   display: flex;
@@ -19,14 +19,6 @@
   cursor: pointer;
   border: 1px solid transparent;
   position: relative;
-}
-
-.program-field > p {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  margin: 0;
-  color: grey;
 }
 
 .program-field > span:hover {
@@ -47,25 +39,24 @@
   border: 1px solid red;
 }
 
-.visualization {
+.program-grid {
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 25px;
   grid-row-gap: 0px;
-  margin-top: -1rem;
 }
 
-.visualization:nth-child(1) {
+.program-grid:nth-child(1) {
   grid-area: 1 / 1 / 2 / 2;
 }
 
-.visualization:nth-child(2) {
+.program-grid:nth-child(2) {
   grid-area: 1 / 2 / 2 / 3;
 }
 
 @media (max-width: 1043px) {
-  .visualization {
+  .program-grid {
     display: block;
   }
 }

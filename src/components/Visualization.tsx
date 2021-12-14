@@ -35,9 +35,10 @@ const Visualization = ({ programState, dispatch, memoryDisplayCount }: Visualiza
 
   return (
     <div>
+      <h2>Visualization</h2>
       <Collapsable altText="Show parsed program">
-        <h2>Visualization</h2>
-        <div className="visualization">
+        <p>parsed program</p>
+        <div className="program-grid">
           <div className="program-field">
             {programState.program.map((instruction, index) => (
               <span
@@ -51,7 +52,6 @@ const Visualization = ({ programState, dispatch, memoryDisplayCount }: Visualiza
                 {instruction}
               </span>
             ))}
-            <p>parsed program</p>
           </div>
           <div>
             <p>cycles: {programState.age}</p>
