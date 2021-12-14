@@ -16,9 +16,7 @@ const ControlPanel = ({ programState, setCode, dispatch, running }: ControlPanel
   <div>
     <h2>
       Control Panel{" "}
-      {programState.program.length === 0 && (
-        <span className="note">(enter any bf program to get started)</span>
-      )}
+      {programState.program.length === 0 && <span className="note">(nothing to run)</span>}
     </h2>
     <p>
       Status:{" "}

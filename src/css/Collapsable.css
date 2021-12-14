@@ -3,6 +3,7 @@
 }
 
 .collapsable-collapsed {
+  margin: 0 auto;
   margin-bottom: 1rem;
 }
 
@@ -26,4 +27,32 @@
 
 .btn-collapsable:hover {
   border: 1px dotted grey;
+}
+
+@media (max-width: 877px) {
+  .collapsable-collapsed {
+    width: 80vw;
+  }
+
+  #fixed-bottom {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+
+    width: 100%;
+    margin: 0;
+
+    text-align: center;
+    background: white;
+    border-top: 1px black solid;
+  }
+
+  #fixed-bottom .btn-collapsable {
+    margin-top: 1rem;
+  }
+
+  #fixed-bottom.collapsable-collapsed > .btn-collapsable {
+    margin-top: 5px;
+  }
 }

@@ -64,7 +64,7 @@ function App() {
           />
         </div>
         <div>
-          <Collapsable altText="Show control panel">
+          <Collapsable fixedBottom altText="Show control panel">
             <ControlPanel
               programState={brainfuck}
               setCode={setCode}
